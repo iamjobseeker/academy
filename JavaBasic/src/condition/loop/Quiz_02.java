@@ -9,12 +9,15 @@ public class Quiz_02 {
 		Scanner input = new Scanner(System.in);
 
 		while(true) {
-			
-			System.out.print("1. 최소공배수" );
-			System.out.print("2. 최대공약수");
-			System.out.print("3. 종료");
-			
-			System.out.println("[최소공배수]");
+
+			System.out.println("---메뉴---");
+			System.out.println("1. 최소공배수" );
+			System.out.println("2. 최대공약수");
+			System.out.println("3. 종료");
+			System.out.println("선택해주세요: ");
+			int menu=input.nextInt();
+
+			if(menu==1) {System.out.println("[최소공배수]");
 			System.out.print("첫번재 숫자 입력: ");
 			int num1=input.nextInt();
 			System.out.print("두번재 숫자 입력: ");
@@ -29,9 +32,7 @@ public class Quiz_02 {
 				}
 			}
 			System.out.println(">> 최소공배수: "+lcm);
-			System.out.println("\n[최대공약수]");
-
-
+			} else if(menu==2) {System.out.println("\n[최대공약수]");
 			System.out.println("첫번째 숫자 입력: ");
 			int val1=input.nextInt();
 			System.out.println("두번재 숫자 입력: ");
@@ -46,6 +47,12 @@ public class Quiz_02 {
 					break;
 				}
 			} 
+			}else {break;
+			}
+
+
+
+
 
 		}
 
