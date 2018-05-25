@@ -1,0 +1,19 @@
+package condition.loop;
+
+public class WhileEx_01 {
+	
+	public static void main(String[] args) {
+		
+		// 반복문 while
+		
+		// while(조건식) {
+		// 		조건식이 true이면 반복되는 문장
+		// }
+		
+		while(true) { // 무한 Loop
+			System.out.println("Hello");
+		}
+		
+	}
+
+}

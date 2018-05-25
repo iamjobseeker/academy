@@ -1,0 +1,21 @@
+package condition;
+
+public class SwitchEx_01 {
+
+	public static void main(String[] args) {
+		
+		// switch문
+		// switch-case문
+		
+		// switch(변수) {  
+		// case 값1:
+		// case 값2:
+		// case 값3:
+		// ...
+		// default:
+		// }
+		
+//		()안에는 정수값이 온다, char 포함
+	}
+	
+}

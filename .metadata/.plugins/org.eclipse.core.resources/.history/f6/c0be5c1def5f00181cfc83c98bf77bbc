@@ -1,0 +1,20 @@
+package condition.loop;
+
+public class DoWhileEx_01 {
+
+	public static void main(String[] args) {
+		
+		// do-while 반복문
+		// while문의 변형
+		
+//		 do {
+//				반복할 코드
+//		 while(조건식);
+//		 }
+		
+		
+		
+		
+	}
+	
+}

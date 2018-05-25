@@ -1,0 +1,39 @@
+package condition;
+
+import java.util.Scanner;
+
+public class IfEx_03_Quiz {
+
+	public static void main(String[] args) {
+		
+		int num;
+		
+		Scanner number=new Scanner(System.in);
+		
+		System.out.println("input number: ");
+		num=number.nextInt();
+		
+		if(num>0) {
+			System.out.println("is Positive");
+		}
+		else {
+			System.out.println("is Negative");
+		}
+		
+		System.out.println("-------");
+		
+		int num1;
+		
+		System.out.println("input number: ");
+		num1=number.nextInt();
+		
+		if(num%6==0) {
+			System.out.println("Go moim");
+		}
+		else {
+			System.out.println("Do running");
+		}
+	}
+	
+}
+

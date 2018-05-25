@@ -1,0 +1,33 @@
+package variables;
+
+public class VariablesEx_06 {
+
+	public static void main(String[] args) {
+		String id="jinkyoung";
+		int age=26;
+		char gender='여';
+		double height=162.5;
+		
+		System.out.println("이름: "+id);
+		System.out.println("나이: "+age);
+		System.out.println("성별: "+gender);
+		System.out.println("키: "+height);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	}
+
+}

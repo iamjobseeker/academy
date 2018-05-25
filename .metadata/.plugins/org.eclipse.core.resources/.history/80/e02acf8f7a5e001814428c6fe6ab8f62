@@ -1,0 +1,15 @@
+package condition;
+
+public class IfElseIfElseEx {
+
+	public static void main(String[] args) {
+		
+		// if(condition1) {
+		// 		조건식1이 참일 때 수행
+		// else if(condition2) {
+		// 		조건식2가 참일 때 수행
+		// else (
+		
+	}
+	
+}

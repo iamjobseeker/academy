@@ -1,0 +1,21 @@
+package operator;
+
+import java.util.Scanner;
+
+public class OperatorQuiz {
+
+	public static void main(String[] args) {
+		
+		Scanner exam=new Scanner(System.in);
+		
+		double kor;
+		double eng;
+		double mat;
+		
+		System.out.println("Korean score: ");
+		kor=exam.nextDouble();
+		
+//		System.out.println("total: " + (kor+eng+mat));
+	}
+
+}

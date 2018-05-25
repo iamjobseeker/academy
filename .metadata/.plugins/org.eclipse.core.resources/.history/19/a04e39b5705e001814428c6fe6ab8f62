@@ -1,0 +1,13 @@
+package condition;
+
+public class BlockEx {
+
+	public static void main(String[] args) {
+		
+		System.out.println("ÇÏ³ª");
+		System.out.println("µÑ");
+		
+		
+	}
+	
+}

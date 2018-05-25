@@ -1,0 +1,28 @@
+package condition;
+
+import java.util.Scanner;
+
+public class SwitchEx_05 {
+	
+	public static void main(String[] args) {
+		
+		int select;	// 메뉴선택
+		Scanner sc = new Scanner(System.in);
+
+	
+		System.out.println("===============================");
+		System.out.println("\tM  e  n  u");
+		System.out.println("===============================");
+		System.out.println("\t1. Hello World 출력");
+		System.out.println("\t2. 이름 출력");
+		System.out.println("\t3. 성별 출력");
+		System.out.println("\t4. 종료");
+		System.out.println("===============================");
+		
+		
+		
+		
+	} 
+		
+	}
+

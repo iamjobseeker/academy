@@ -1,0 +1,16 @@
+package condition.loop;
+
+public class ExtEx_01 {
+	
+	public static void main(String[] args) {
+		
+		// break
+		// 		if를 제외한 제어문을 중단시킨다
+		//		break코드가 포함된 중괄호의 제어문
+		
+		// continue
+		//		
+		
+	}
+
+}

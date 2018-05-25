@@ -1,0 +1,25 @@
+package condition;
+
+import java.util.Scanner;
+
+public class IfQuiz {
+
+	public static void main(String[] args) {
+		
+		Scanner sc=new Scanner(System.in);
+		int num1;
+		
+		System.out.println("---Q1---");
+		System.out.println("mutiple of 3?: ");
+		num1=sc.nextInt();
+		if(num1%3==0) {
+			System.out.println("num1 is a multiple of 3.");
+		}
+		else {
+			System.out.println("num1 is not a multiple of 3.");
+		}
+
+		System.out.println("---Q2---");
+		
+	}
+}

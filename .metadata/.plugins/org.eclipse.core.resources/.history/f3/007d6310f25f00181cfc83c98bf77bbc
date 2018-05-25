@@ -1,0 +1,12 @@
+package condition;
+
+public class SwitchEx_01 {
+
+	public static void main(String[] args) {
+		
+		// switch¹®
+		// switch-case¹®
+		
+	}
+	
+}

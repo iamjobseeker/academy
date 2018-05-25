@@ -1,0 +1,13 @@
+package condition.loop;
+
+public class ForEx_10 {
+	
+	public static void main(String[] args) {
+		
+		System.out.println("Q1");
+		
+		for(i=1; i)
+		
+	}
+
+}

@@ -1,0 +1,12 @@
+package scanner;
+
+public class ScannerEx_01 {
+
+	public static void main(String[] args) {
+		
+		Scanner sc;
+		
+		
+	}
+
+}

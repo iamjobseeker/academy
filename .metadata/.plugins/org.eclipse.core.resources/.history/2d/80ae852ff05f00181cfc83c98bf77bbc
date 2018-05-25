@@ -1,0 +1,23 @@
+package condition.loop;
+
+import java.util.Scanner;
+
+public class DoWhileEx_02 {
+
+	public static void main(String[] args) {
+		
+		Scanner sc=new Scanner(System.in);
+		
+		// 99가 입력되면 종료
+		
+		int num;
+		
+		do {
+			int num=sc.nextInt();
+			System.out.println(num);
+		} while(num != 99);
+		
+	}
+	
+	
+}
