@@ -2,17 +2,19 @@ package condition.loop;
 
 import java.util.Scanner;
 
-public class factorial {
-
+public class just {
+	
 	public static void main(String[] args) {
 		
 		Scanner input=new Scanner(System.in);
+		int num;
 		
-		int num=input.nextInt();
-		int i=1;
-
-		
+		do {
+			System.out.print("input: ");
+			num=input.nextInt();
+			System.out.println("a");
+		} while(num!=999);
 		
 	}
-	
+
 }
