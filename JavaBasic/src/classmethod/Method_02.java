@@ -20,10 +20,6 @@ public class Method_02 {
 		}
 	}
 	
-	
-	
-	
-	
 	public static void main(String[] args) {
 		r_two(3,"you");
 	}	
