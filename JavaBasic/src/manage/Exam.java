@@ -6,14 +6,15 @@ public class Exam {
 	
 	public static void main(String[] args) {
 		
-		StudentService ss;
-		
-		ss = new StudentService();
+		// Student를 관리하는 기능제공 클래스
+		// Student 생성자가 시작된다
+		StudentService ss = new StudentService();
 		
 		Scanner input = new Scanner(System.in);
 		
 		System.out.print("이름을 입력해주세요. ");
 		String name = input.nextLine();
+
 		System.out.print("나이를 입력해주세요. ");
 		int age = input.nextInt();
 		
@@ -28,11 +29,7 @@ public class Exam {
 		
 		ss.insertScore(kor, eng, math);
 		
-		ss.calcSum();
-		
-		ss.calcAvg();
-		
-		System.out.println("\t===결과===\n");
+		System.out.println("\n\t===결과===\n");
 		
 		ss.printStu();
 		
