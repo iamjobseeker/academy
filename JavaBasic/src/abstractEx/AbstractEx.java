@@ -20,7 +20,6 @@ class Professor extends Person {
 		System.out.println(major +"를 전공했습니다");
 	}
 	
-	
 }
 
 class Student extends Person {
@@ -51,9 +50,3 @@ public class AbstractEx {
 	}
 
 }
-
-
-
-
-
-
