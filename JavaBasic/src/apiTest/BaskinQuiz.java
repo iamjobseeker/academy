@@ -35,16 +35,16 @@ public class BaskinQuiz {
 				}
 			} while(user<1 || user>3);
 
-
-			for (int i=1; i<=user; i++) {
+								  // 31이라는 조건추가
+			for (int i=1; i<=user && stt<31 ; i++) {
 				stt+=1;
 				System.out.println("현재 숫자는");
 				System.out.println(stt);
-				if(stt==31) {
+				if(stt>=31) {
 					System.out.println("컴퓨터의 승리!");
 					break;
 				}
-			} 
+			}  
 
 			if(stt==29) com=1;
 			else com = random.nextInt(3)+1;
@@ -52,16 +52,16 @@ public class BaskinQuiz {
 			System.out.println();
 			System.out.println("컴퓨터는 " + com + "개의 숫자를 선택했습니다.");
 
-			for (int i=1; i<=com; i++) {
+								 // 31이라는 조건추가 
+			for (int i=1; i<=com && stt<31; i++) {
 				stt+=1; 
 				System.out.println("현재 숫자는");
 				System.out.println(stt);
-				if(stt==31) {
+				if(stt>=31) {
 					System.out.println("사용자의 승리!");
 					break;
 				}
 			}
-		} while (stt!=31);
-
+		} while (stt < 31); 
 	}
 }
