@@ -35,7 +35,7 @@ public class BaskinQuiz {
 				}
 			} while(user<1 || user>3);
 
-								  // 31이라는 조건추가
+			// 31이라는 조건추가
 			for (int i=1; i<=user && stt<31 ; i++) {
 				stt+=1;
 				System.out.println("현재 숫자는");
@@ -52,7 +52,7 @@ public class BaskinQuiz {
 			System.out.println();
 			System.out.println("컴퓨터는 " + com + "개의 숫자를 선택했습니다.");
 
-								 // 31이라는 조건추가 
+			// 31이라는 조건추가 
 			for (int i=1; i<=com && stt<31; i++) {
 				stt+=1; 
 				System.out.println("현재 숫자는");
