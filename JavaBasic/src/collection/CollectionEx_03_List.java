@@ -12,6 +12,7 @@ public class CollectionEx_03_List {
 		// 컬렉션의 요소들을 읽어오는 방법을 표준화한것
 		
 		List list = new ArrayList<>();
+		
 		list.add("Apple");
 		list.add("Banana");
 		list.add("Cherry");
@@ -26,9 +27,7 @@ public class CollectionEx_03_List {
 		while( iter.hasNext()) {
 			System.out.println(iter.next());
 		}
-		
-		
-		
+
 	}
 
 }

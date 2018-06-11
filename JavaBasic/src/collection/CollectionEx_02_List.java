@@ -27,7 +27,6 @@ public class CollectionEx_02_List {
 		
 		List stringList = Arrays.asList("Alice", "Bob", "Clare");
 		System.out.println(stringList);
-		
-		
+
 	}
 }
