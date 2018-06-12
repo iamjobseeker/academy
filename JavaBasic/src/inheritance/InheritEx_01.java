@@ -12,18 +12,19 @@ class Parent{
 }
 
 class Child extends Parent { 
+
 	int score; // parent에는 없고 child에만 존재하는 코드
 
 	public void print() { 
-		
+
 		System.out.println("자식 클래스 메소드");
 
 		display(); // 클래스 중괄호 기준으로 가까운 것으로 인식된다
-		
+
 		this.display(); // this : 자신의 클래스를 지칭
 
 		super.display(); // super : 부모클래스 참조 객체
-		
+
 	}
 
 	@Override // 어노테이션, annotation
@@ -46,6 +47,7 @@ public class InheritEx_01 {
 		Child c = new Child();
 		c.num=222;
 		System.out.println(c.num);
+		System.out.println(p.num);
 
 		System.out.println("--------");
 		p.display();
