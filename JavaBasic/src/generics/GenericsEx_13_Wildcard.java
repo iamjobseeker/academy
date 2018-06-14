@@ -20,12 +20,11 @@ public class GenericsEx_13_Wildcard {
 			list.add(30);
 			
 			display(list);
-			
-			
+
 		}
 		
 	
-	List<?> list = new ArrayList<>();
+	List<?> list = new ArrayList<>(); 
 	
 	//String str = list.get(0);
 				// 최상위 클래스인 object 타입으로 반환된다

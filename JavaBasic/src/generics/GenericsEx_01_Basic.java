@@ -38,7 +38,7 @@ public class GenericsEx_01_Basic {
 		list2.add("B");
 		System.out.println(list2);
 		
-		String str2 = list2.get(0); // String으로 취급된다
+		String str2 = list2.get(0); // 바로 String으로 취급된다
 		
 		
 	}

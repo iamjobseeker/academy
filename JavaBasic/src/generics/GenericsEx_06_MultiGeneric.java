@@ -37,7 +37,7 @@ public class GenericsEx_06_MultiGeneric {
 		c06.setData2("Apple");
 		
 		Integer data = 100;
-		Double res = c06.change(data);
+		Double res = c06.change(data); // error!
 		
 		Integer d1 = 100;  // d1은 100에 대한 참조 주소를 가지고있음
 //		Double d2 = (Double) c06.change(d1); // d2에 들어가는 것은 참조주소
