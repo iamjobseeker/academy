@@ -2,15 +2,18 @@ package stream_ByteStream;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Scanner;
 
 public class InputStreamEx_01_read {
 	public static void main(String[] args) {
 		
 		// 키보드스트림 
 		InputStream inpst; 
+//		Scanner input;
 		
 		// 키보드와 연결해주는 표준 입력스트림 
 		inpst = System.in; 
+//		input = new Scanner(System.in);
 		
 		// 계속해서 들어오는 데이터를 처리하는데 적합
 		// read가 데이터를 꺼내오면 버퍼의 데이터는 삭제된다 
