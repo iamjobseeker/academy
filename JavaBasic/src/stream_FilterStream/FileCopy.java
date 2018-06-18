@@ -1,5 +1,7 @@
-package stream_FileStream;
+package stream_FilterStream;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,34 +13,36 @@ public class FileCopy {
 
 		// 파일 객체를 선언
 		File src = new File("D:/Source.txt");
-		File dest = new File("./src/stream_FileStream/", "Dest");
+		File dest = new File("./src/stream_FilterStream/", "Dest");
 
 		// 입출력스트림 객체 선언 
 		FileInputStream fis = null;
+		BufferedInputStream bis = null;
 		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
 
-		byte[] buf = new byte[1024]; // 버퍼
-		int len = -1; // 입출력 길이(1회) - 버퍼가 1회 입출력한 데이터의 길이 
-		int tot = 0;  // 총 입출력 길이  - 버퍼가 총 입출력한 데이터의 길이
+		byte[] buf = new byte[1024]; 
+		int len = -1; 
+		int tot = 0;  
 
 		try {
-			fis = new FileInputStream(src);  // throws FileNotFoundException 
+			fis = new FileInputStream(src); 
+			bis = new BufferedInputStream(fis);
 			fos = new FileOutputStream(dest); 
+			bos = new BufferedOutputStream(fos); 
 
-					// 1024byte씩 buf에 반복 저장
-			while( (len = fis.read(buf)) != -1 ) { // eof를 만날때까지 반복 
-												   // throws IOException
-				
-				//  fos.write(buf);  버퍼에 남아있는 값으로 인해 마지막 출력때 문제 발생 
-				fos.write(buf, 0, len);
 
-				// 100byte가 파일에 있는 상황
-				// 1. buf에 해당 데이터가 담기고 len=100이 된다
-				// 2. write하면 100번재 데이터까지 출력된다 
-			
-				// 파일카피 총 길이
+			while( (len = bis.read(buf)) != -1 ) {
+				bos.write(buf, 0, len);
 				tot += len;				
+				
+				// 스트림에 남아있는 데이터를 fis로 보내주는 역할
+				// close에 포함되어 있는 기능
+				// bos.flush(); // 1 (while문 안에 있으면 데이터를 충분히 모으지 못하고 계속 보냄)
 			} 
+			
+			bos.flush(); // 2 (마지막에 있으면 모든 데이터를 모아서 한번에 보냄)
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("[ERROR] 파일 존재하지 않음");
 			e.printStackTrace();
@@ -47,8 +51,10 @@ public class FileCopy {
 			e.printStackTrace();
 		} finally {
 			try {
-				// 스트림 닫기
-				// 만일 fis=null이라면 null.close()가 되어 에러
+				if(bis!=null) bis.close();
+				// close하면 스트림에 있는것을 다 내보낸다 
+				if(bos!=null) bos.close();
+				
 				if(fis!=null) fis.close(); 
 				if(fos!=null) fos.close();
 			} catch (IOException e) {

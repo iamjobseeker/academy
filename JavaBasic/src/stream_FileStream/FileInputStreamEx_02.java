@@ -28,7 +28,7 @@ public class FileInputStreamEx_02 {
 			//FileInputStream의 생성자를 호출할때는 파일을 매개변수로 사용
 			fis = new FileInputStream(file);
 			
-						// buf라는 배열에 존재하는 모든 데이터를 한번에 읽어들어온다
+						// 파일의 데이터를 한번에 읽어와서 buf에 저장한다 
 						// 효율적인 코드 
 						// len은 해당 배열의 길이가 된다 
 			while( ( len = fis.read(buf) ) != -1 ){ 

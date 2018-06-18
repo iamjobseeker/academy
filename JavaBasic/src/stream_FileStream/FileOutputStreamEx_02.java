@@ -33,6 +33,7 @@ public class FileOutputStreamEx_02 {
 //			fos.write(buf);
 			// buf에서 문자가 존재하는 부분만 출력
 			fos.write(buf, 0, buf.length);
+//			System.out.println(buf.length);  -> 1024
 
 		} catch (FileNotFoundException e) {
 			System.out.println("[ERROR] 파일이 존재하지 않음");
