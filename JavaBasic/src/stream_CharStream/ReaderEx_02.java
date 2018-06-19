@@ -6,18 +6,19 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-public class ReaderEx_01 {
+public class ReaderEx_02 {
 	public static void main(String[] args) {
 
 		Reader rd = new InputStreamReader(System.in); // Bytestream을 Charstream으로 변환
 		Writer wt = new OutputStreamWriter(System.out); 
 
-		int in = -1;
+		// char형이기 때문에 char형 배열을 만든다
+		char[] cbuf = new char[1024];
+		int len = -1;
 		try {
-			while( (in = rd.read()) != -1 ) { // read로 한 문자씩 읽음
-				wt.write(in); 
-			 // wt.flush(); 한 줄씩 출력
-			}  wt.flush(); // 모든 내용을 한번에 출력
+			while( (len = rd.read(cbuf)) != -1 ) { // read로 한 문자씩 읽음
+				wt.write(cbuf, 0, len); 
+			}  wt.flush();
 		} catch (IOException e) { 
 			e.printStackTrace();
 		} finally {
