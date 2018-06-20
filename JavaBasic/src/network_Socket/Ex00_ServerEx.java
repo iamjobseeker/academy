@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerEx {
+public class Ex00_ServerEx {
 
 	public static void main(String[] args) {
 
