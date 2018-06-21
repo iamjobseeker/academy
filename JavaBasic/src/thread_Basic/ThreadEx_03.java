@@ -22,11 +22,12 @@ public class ThreadEx_03 extends Thread {
 		System.out.println(idx + "스레드 종료");
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
+		System.out.println("Main 스레드 시작"); // 메인 스레드(1개)
 		
-		System.out.println("Main 스레드 시작");
-		
-		for(int i=0; i<10; i++) { // 새로운 스레드가 생겨난다 
+		// 기타 스레드(10개)
+		// 메인 스레드가 종료돼도 계속 실행된다 
+		for(int i=0; i<10; i++) { 
 			new ThreadEx_03(i).start();
 		}
 		

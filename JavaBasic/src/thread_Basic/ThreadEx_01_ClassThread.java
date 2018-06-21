@@ -28,6 +28,7 @@ public class ThreadEx_01_ClassThread {
 		// tt.run(); //start로 호출하지 않으면 일반 메소드 호출이 되어 
 					// run을 먼저 수행하고 main을 수행한다 
 		
+		
 		ThreadTest01 tt2 = new ThreadTest01();
 		tt2.start(); // 3번째 스레드 
 
