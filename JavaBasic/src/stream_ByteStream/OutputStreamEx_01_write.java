@@ -8,8 +8,7 @@ public class OutputStreamEx_01_write {
 	public static void main(String[] args) {
 		
 		OutputStream os;	
-		os = System.out; //PrintStream을 OutputStream에 대입 (얕은 복사)
-		
+		os = System.out; // Q)PrintStream을 OutputStream에 대입 (얕은 복사)	
 //		os.println();  // 불가능
 		
 		try {
@@ -31,10 +30,9 @@ public class OutputStreamEx_01_write {
 //			} catch (IOException e) {
 //				e.printStackTrace();
 //			} 
-		}
+//		}
 		
 		System.out.println(" + + 프로그램 정상 종료 + +");
-		
+		}
 	}
-
 }

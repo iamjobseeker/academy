@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="car.Car"/>
-<fullyQualifiedTypeName name="product.Product"/>
-<fullyQualifiedTypeName name="product.Tv"/>
 <fullyQualifiedTypeName name="product.Computer"/>
 <fullyQualifiedTypeName name="innerClass.Outer.MemberInner"/>
 <fullyQualifiedTypeName name="innerClass.Outer.StaticInner"/>
@@ -50,9 +46,18 @@
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="thread_Basic.ThreadTest01"/>
-<fullyQualifiedTypeName name="java.lang.Runnable"/>
 <fullyQualifiedTypeName name="thread_Basic.ThreadTest02"/>
 <fullyQualifiedTypeName name="thread_Basic.ThreadEx_03"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="thread_Basic.ThreadEx_04_Join"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="thread_Basic.ThreadDemo"/>
+<fullyQualifiedTypeName name="thread_Basic.DaemonThreadTest"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="thread_Basic.DaemonThreadTest2"/>
+<fullyQualifiedTypeName name="thread_Synchronized.SyncTest01"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="thread_Synchronized.SyncData"/>
+<fullyQualifiedTypeName name="thread_Synchronized.Output"/>
+<fullyQualifiedTypeName name="thread_Synchronized.Input"/>
 </qualifiedTypeNameHistroy>
