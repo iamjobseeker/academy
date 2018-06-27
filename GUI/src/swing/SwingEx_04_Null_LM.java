@@ -41,7 +41,5 @@ public class SwingEx_04_Null_LM extends JFrame{
 		
 		
 	}
-	
-
 
 }
