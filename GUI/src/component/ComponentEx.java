@@ -1,31 +1,41 @@
-package component;
+package component; 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class ComponentEx extends JFrame {
 
 	public ComponentEx() { // 생성자 시작 
-		setBounds(1000, 500, 100, 200);
+		setBounds(1000, 500, 248, 271);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(null); 
+		getContentPane().setLayout(null);
 
 		/* Class KeyAdapter 
 
@@ -45,9 +55,8 @@ then register it with a component using the component's addKeyListener method.
 When a key is pressed, released, or typed, 
 the relevant method in the listener object is invoked, and the KeyEvent is passed to it.
 		 */
-		
 
-			/* Class KeyEvent 
+		/* Class KeyEvent 
 
 An event which indicates that a keystroke occurred in a component. 
 
@@ -58,14 +67,14 @@ The event is passed to every KeyListener or KeyAdapter object
 which registered to receive such events using the component's addKeyListener method. 
 (KeyAdapter objects implement the KeyListener interface.) 
 Each such listener object gets this KeyEvent when the event occurs. 
-			 */
+		 */
 
-			addKeyListener(new KeyAdapter() { 
-				
+		addKeyListener(new KeyAdapter() { 
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) { // getKeyCode: Returns the integer keyCode associated with the key in this event.
-				
+
 				case KeyEvent.VK_0: System.out.println("0 눌림"); break;
 
 				case KeyEvent.VK_1: jTextAreaEx(); break;
@@ -75,10 +84,16 @@ Each such listener object gets this KeyEvent when the event occurs.
 				case KeyEvent.VK_3: jPasswordFieldEx(); break;
 
 				case KeyEvent.VK_4: jButtonEx(); break; 
-				
+
 				case KeyEvent.VK_5: jCheckBoxEx(); break;
+
+				case KeyEvent.VK_6: jRadioButtonEx(); break; 
+
+				case KeyEvent.VK_7: jListEx(); break; 
+
+				case KeyEvent.VK_8: jComboBoxEx(); break; 
 				} 
-				
+
 			}
 		}); 
 
@@ -86,7 +101,7 @@ Each such listener object gets this KeyEvent when the event occurs.
 
 	} // 생성자 끝
 
-	private void jTextAreaEx() {
+	private void jTextAreaEx() { // 1번
 		JTextArea txtArea = new JTextArea(); 
 		txtArea.setColumns(40); // 너비 
 		txtArea.setRows(5); // 높이
@@ -99,7 +114,7 @@ Each such listener object gets this KeyEvent when the event occurs.
 
 		String str = txtArea.getText(); // area의 텍스트를 가져옴 
 		System.out.println(str); 
-		
+
 		newJFrame(txtArea); // 밍? 
 	}
 
@@ -133,7 +148,7 @@ Each such listener object gets this KeyEvent when the event occurs.
 		frame.setVisible(true); 
 	}
 
-	private void jTextfieldEx() {
+	private void jTextfieldEx() { // 2번
 		JTextField txt = new JTextField();
 		txt.setColumns(10); // 너비 
 
@@ -153,13 +168,12 @@ Each such listener object gets this KeyEvent when the event occurs.
 			}
 
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent e) { 
 				// JTextField에 포커스가 넘어가면 Text 지우기
 				if(txt.getText().equals("ID를 입력하세요")) {
 					txt.setText("");
 					txt.setForeground(Color.BLACK); 
 				}
-
 			}
 		});
 
@@ -175,22 +189,21 @@ Each such listener object gets this KeyEvent when the event occurs.
 		// 화면을 띄우는 newJFrame() 메소드 이후 호출해야 함
 		btn.requestFocus(); // 버튼이 포커스 획득 
 		//
-
 	}
 
-	private void jPasswordFieldEx() { 
+	private void jPasswordFieldEx() { // 3번 
 		JPasswordField pass = new JPasswordField("TEST", 20);
 
-//		System.out.println(pass.getText()); deprecated
+		//		System.out.println(pass.getText()); deprecated
 		System.out.println(pass.getPassword()); 
 
 		newJFrame(pass); 
 	}
 
-	private void jButtonEx() {
+	private void jButtonEx() { // 4번 
 		JButton btn = new JButton("버튼"); 
 
-		btn.setToolTipText("전송합니다");
+		btn.setToolTipText("전송합니다"); // 마우스를 올릴때 생성 텍스트 
 
 		btn.addActionListener(new ActionListener() {
 
@@ -210,40 +223,157 @@ Each such listener object gets this KeyEvent when the event occurs.
 
 		newJFrame(btn);
 	}
-	
-	private void jCheckBoxEx() {
-		JCheckBox check = new JCheckBox("아이스 아메리카노");
+
+	private void jCheckBoxEx() { // 5번
+		// 체크박스 만들기 
+		JCheckBox check1 = new JCheckBox("아이스 아메리카노");
 		JCheckBox check2 = new JCheckBox("수박주스");
-		JCheckBox check3 = new JCheckBox("아이스초코");
-		
-		JPanel pane2 = new JPanel();
-		pane2.add(check);
-		pane2.add(check2);
-		pane2.add(check3); 
-	
-		newJFrame(pane2);
-		
-		
-		
+		JCheckBox check3 = new JCheckBox("아이스 초코");
+
+		// 선택 출력창 만들기 
+		JTextField text = new JTextField();
+		text.setColumns(10);
+
+		// 레이아웃 // 잘 안됨
+		setLayout(new BorderLayout()); 
+		add(check1, "East");
+		add(check2, "West");
+		add(check3, "South"); 
+		add(text, "Center");
+
+		// 콘솔에 출력
+		check1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(check1.getText());				
+			}
+		}); 
+
+		check2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(check2.getText());				
+			}
+		}); 
+
+		check3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(check3.getText());
+			}
+		});
+
+		//		@Override
+		//		public void actionPerformed(ActionEvent e) {
+		//			if(e.getSource()==check1) {
+		//				System.out.println();
+		//			}
+		//		}
+
+		//		check1.addActionListener(this);
+
+		JPanel pane5 = new JPanel();
+
+		pane5.add(check1); 
+		pane5.add(check2);
+		pane5.add(check3); 
+		pane5.add(text);
+
+		newJFrame(pane5); // 생성메소드
+
+		// 콘솔에 출력
+		check1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(check1.getText());				
+			}
+		}); 
+
+		check2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(check2.getText());				
+			}
+		}); 
+
+		check3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(check3.getText());
+			}
+		});
+
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	private void jRadioButtonEx() { // 6번
+		// 라디오버튼 만들기
+		JRadioButton radio1 = new JRadioButton("아이스 아메리카노");
+		JRadioButton radio2 = new JRadioButton("수박주스");
+		JRadioButton radio3 = new JRadioButton("아이스초코");
+
+		JPanel pane3 = new JPanel();
+
+		pane3.add(radio1);
+		pane3.add(radio2);
+		pane3.add(radio3);
+
+		newJFrame(pane3); // 생성메소드
+
+		// 콘솔에 출력
+		radio1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(radio1.getText());				
+			}
+		}); 
+
+		radio2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(radio2.getText());				
+			}
+		}); 
+
+		radio3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(radio3.getText()); 
+			}
+		});
+	}
+
+	private void jListEx() { // 7번
+		// 리스트 생성
+		String[] ram = {"신라면", "진라면", "오징어짬뽕", "왕뚜껑"}; 
+		JList mylist = new JList(ram);
+
+		// 콘솔에 출력
+		
+		
+
+
+
+		JPanel pane4 = new JPanel();
+		pane4.add(mylist); 
+		newJFrame(pane4);
+	}
+
+	private void jComboBoxEx() { // 8번
+		// 콤보박스 생성
+		String[] ram = {"신라면", "진라면", "오징어짬뽕", "왕뚜껑"};
+		JComboBox combo = new JComboBox(ram);
+
+		//	combo.setSelectedItem(combo);
+
+		JPanel pane8 = new JPanel();
+		pane8.add(combo);
+		newJFrame(pane8); 
+	}
+
 
 	public static void main(String[] args) {
-		new ComponentEx();
+		new ComponentEx(); 
 	}
+
 }

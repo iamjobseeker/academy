@@ -18,7 +18,7 @@ public class SwingEx_01_Basic {
 		// 프레임 클로징 이벤트 설정
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		
-		// EXIT_ON_CLOSE: 닫기버튼 눌러서 프로그램 종료
+		// EXIT_ON_CLOSE: 닫기버튼 눌러서 프로그램 종료 
 		// DISPOSE_ON_CLOSE: 윈도우 종료(마지막 윈도우면 프로그램 종료)
 		// HIDE_ON_CLOSE: 종료하지 않고 닫기
 		// DO_NOTHING_ON_CLOSE: 아무것도 하지 않기 
