@@ -1,10 +1,10 @@
-		 방법1. WindowListner 인터페이스
+	방법1. WindowListner 인터페이스
 		
 		WindowListener l;
 		
-		l = new WindowListener() {  인터페이스 
-	  		인터페이스를 객체화 하려면
-			해당 인터페이스의 추상 메소드를 모두 오버라이드 해야함
+		l = new WindowListener() { 
+	  		// 인터페이스를 객체화 하려면
+			// 해당 인터페이스의 추상 메소드를 모두 오버라이드 해야함
 			
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -32,17 +32,33 @@
 		};
 	
 		
-		 방법2. windowadapter 클래스 
+	 방법2. windowadapter 클래스 
 		
 		WindowListener l;
 		
-		l = new WindowAdapter() {  WindowListener를 상속받는 클래스
+		l = new WindowAdapter() { // WindowListener를 상속받는 클래스
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.out.println(e);  이벤트 정보 출력 
-				System.exit(0);  창 정상종료 리턴코드 0 
+				System.out.println(e);  //이벤트 정보 출력 
+				System.exit(0);  		//창 정상종료 리턴코드 0 
 			} 
 			
 		};
 		
 		fr.addWindowListener(l); 
+		
+	방법3. 한번에 호출 
+	
+			private void windowEvent(Frame fr) {
+	
+			fr.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					System.exit(0); 
+				}
+			});
+		}
+			
+		
+		
+		

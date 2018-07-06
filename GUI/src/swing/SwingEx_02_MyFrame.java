@@ -1,6 +1,7 @@
 package swing;
 
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,17 +9,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class SwingEx_02_MyFrame extends JFrame { // JFrame을 상속받아 클래스자체가 창인 것처럼 작성한다
+public class SwingEx_02_MyFrame extends JFrame  { // JFrame을 상속받아 클래스자체가 창인 것처럼 작성한다
 
 	// 레이블 1개
 	private JLabel lbl;
-	// 버튼 2개
+	// 버튼 2개 
 	private Button btn1; // 그냥 버튼
 	private JButton btn2; // J버튼
 	private JButton btn3; // J버튼
 
 	// private생성자, 다른 사람의 임의변경 금지
-	private SwingEx_02_MyFrame() { 
+	private SwingEx_02_MyFrame() { // 생성자 
 
 		// 제목 표시줄
 		setTitle("GUI Program");
@@ -41,30 +42,31 @@ public class SwingEx_02_MyFrame extends JFrame { // JFrame을 상속받아 클래스자체
 
 	} // 생성자 끝 
 	
-	private void initFrame() {
+	private void initFrame() { 
 		// 레이블 1개, 버튼 3개 생성
 		lbl = new JLabel("레이블 입니다.");
 		lbl.setHorizontalAlignment(JLabel.CENTER); // 가운데 정렬, CENTER는 상수(=0)
-
-		btn1 = new Button("버튼1(awt) 입니다.");
+												   // Sets the alignment of the label's contents along the X axis. 
+		btn1 = new Button("버튼1(awt) 입니다."); 
 		btn2 = new JButton("버튼2(swing) 입니다.");
 		btn3 = new JButton("버튼3(swing) 입니다.");
 
 		// 프레임에 버튼 추가
-		add(btn1); // awt는 Swing의 부모클래스 
+		add(btn1); // Awt는 Swing의 부모클래스 
 		add(btn2);
 		add(btn3); 
 		add(lbl);
-	}
+	} 
 
 	private void initEvent() {
 		btn1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				lbl.setText("");
+				lbl.setText(""); 
+				lbl.setForeground(Color.red); // 왜 안되지...
 			}
-		});
+		}); 
 
 		// 버튼이 눌리면 레이블에 텍스트가 보이도록 작성
 		// btn2 -> 버튼2에요!!
@@ -90,6 +92,5 @@ public class SwingEx_02_MyFrame extends JFrame { // JFrame을 상속받아 클래스자체
 		new SwingEx_02_MyFrame(); 
 
 	}
-
 
 }

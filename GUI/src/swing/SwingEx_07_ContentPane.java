@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,10 +19,11 @@ import javax.swing.KeyStroke;
 import com.sun.glass.events.KeyEvent;
 
 public class SwingEx_07_ContentPane 
-extends JFrame implements ActionListener { // Jframe이자 ActionListener타입으로 class를 바꾸었다
+extends JFrame implements ActionListener { // JFrame이자 ActionListener타입으로 class를 바꾸었다
 
 	//--- 루트 컨테이너 구성에 필요한 변수 ---
 	private Container root; // 루트 컨테이너
+	//-----------------
 	
 	// --- 첫 번째 판넬 --- 
 	private JPanel pane;
@@ -53,22 +55,22 @@ extends JFrame implements ActionListener { // Jframe이자 ActionListener타입으로 
 	private JMenuItem exitItem; // 닫기버튼
 	//------------------------
 
-	// 생성자
-	public SwingEx_07_ContentPane() {
+	public SwingEx_07_ContentPane() { // 프레임 생성자
+		
 		setTitle("Top-Level Component Example"); 
 		setBounds(900, 300, 600, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE); 
 
-		// 메뉴바 설정
-		initMenuBar();
-		
 		// 루트컨테이너 설정
 		initRootContainer();
+		
+		// 메뉴바 설정
+		initMenuBar();
 
 		setVisible(true);
-	} // 생성자 끝
+	} // 생성자 끝 
 
-	private void initRootContainer() {
+	private void initRootContainer() { 
 		// 루트 컨테이너 받기
 		root = getContentPane(); 
 		
@@ -77,6 +79,22 @@ extends JFrame implements ActionListener { // Jframe이자 ActionListener타입으로 
 		
 		root.add(pane); // 메인프레임에 첫번째 판넬 추가하기 
 		root.add(pane2); // 메인프레임에 두번째 판넬 추가하기
+	}
+	
+	private void initPane() {
+		pane = new JPanel(); 
+		
+		btnHi = new JButton("안녕");
+		pane.add(btnHi);
+		btnHi.addActionListener(this);
+		
+		btnBye = new JButton("바이");
+		pane.add(btnBye);
+		btnBye.addActionListener(this);
+		
+		btnChange = new JButton("바꾸기");
+		pane.add(btnChange);
+		btnChange.addActionListener(this);
 	}
 
 	private void initPane2() {
@@ -104,22 +122,6 @@ extends JFrame implements ActionListener { // Jframe이자 ActionListener타입으로 
 		btnOk.addActionListener(this);
 		btnCancel.addActionListener(this);
 		btnChange2.addActionListener(this); 
-	}
-
-	private void initPane() {
-		pane = new JPanel(); 
-		
-		btnHi = new JButton("안녕");
-		pane.add(btnHi);
-		btnHi.addActionListener(this);
-		
-		btnBye = new JButton("바이");
-		pane.add(btnBye);
-		btnBye.addActionListener(this);
-		
-		btnChange = new JButton("바꾸기");
-		pane.add(btnChange);
-		btnChange.addActionListener(this);
 	}
 
 	private void initMenuBar() { 
@@ -193,7 +195,6 @@ extends JFrame implements ActionListener { // Jframe이자 ActionListener타입으로 
 		root.validate();
 		root.repaint();
 	 }
-	 
 	}
 	
 	private void initExitItem() {

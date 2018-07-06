@@ -12,14 +12,14 @@ public class EventEx_02_FocusEvent
 	extends JFrame implements FocusListener{
 	
 	public EventEx_02_FocusEvent() {
+		setTitle("FocusEvent02"); 
 		setBounds(1000, 50, 600, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		setLayout(new FlowLayout());
+		setLayout(new FlowLayout()); 
 		
 		add(new JButton("1")); 
 		JButton btn2 = new JButton("2"); 
-		
 		
 		setVisible(true);
 	}
