@@ -3,6 +3,8 @@ package mini;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -40,7 +42,7 @@ public class CalendarAdd_Grid extends JFrame {
 	private JButton okbut; // 등록 버튼
 	private JButton nobut; // 취소 버튼 
 	// 왼오른쪽 패널
-	private JLabel leftlabel;
+	private JLabel leftlabel; 
 	private JLabel rightlabel;
 
 	protected CalendarAdd_Grid() { // 생성자 
@@ -91,6 +93,7 @@ public class CalendarAdd_Grid extends JFrame {
 		// ----- 일정 등록하기 (일정명 입력) -----
 		name = new JTextField("일정명", 50);
 		name.setColumns(5); 
+		name.setPreferredSize(new Dimension(500, 50));
 //		name.setFont(new Font("굴림", Font.PLAIN, 15)); // 폰트 지정 
 		name.setBorder(null);
 		name.setForeground(Color.GRAY); 
@@ -120,6 +123,7 @@ public class CalendarAdd_Grid extends JFrame {
 		// ----- 일정 시작지점 등록하기 -----
 		start = new JTextField("시작");
 //		start.setFont(new Font("굴림", Font.PLAIN, 15)); // 폰트 지정
+		start.setPreferredSize(new Dimension(50, 100));
 		start.setBorder(null); 
 		start.setBackground(Color.white);
 		start.setEditable(false);

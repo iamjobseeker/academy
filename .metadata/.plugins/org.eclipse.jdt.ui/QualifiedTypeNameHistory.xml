@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.awt.Button"/>
 <fullyQualifiedTypeName name="swing.SwingEx_03_LayoutManager"/>
 <fullyQualifiedTypeName name="swing.SwingEx_04_Null_LM"/>
 <fullyQualifiedTypeName name="java.awt.Point"/>
@@ -34,7 +33,6 @@
 <fullyQualifiedTypeName name="java.awt.event.FocusListener"/>
 <fullyQualifiedTypeName name="java.awt.event.FocusAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
-<fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 <fullyQualifiedTypeName name="java.awt.event.ItemEvent"/>
 <fullyQualifiedTypeName name="java.awt.event.ItemListener"/>
 <fullyQualifiedTypeName name="javax.swing.text.MaskFormatter"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="javax.swing.SwingConstants"/>
 <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
+<fullyQualifiedTypeName name="java.awt.Event"/>
 </qualifiedTypeNameHistroy>
