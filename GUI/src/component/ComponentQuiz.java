@@ -185,7 +185,7 @@
 			JButton btn = new JButton("로그인"); 
 			pane.add(btn); 
 
-			newJFrame(pane);
+			newJFrame(pane); 
 
 			// 화면을 띄우는 newJFrame() 메소드 이후 호출해야 함
 			btn.requestFocus(); // 버튼이 포커스 획득 
@@ -351,10 +351,6 @@
 
 			// 콘솔에 출력
 			
-			
-
-
-
 			JPanel pane4 = new JPanel();
 			pane4.add(mylist); 
 			newJFrame(pane4);

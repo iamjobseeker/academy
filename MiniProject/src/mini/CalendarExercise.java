@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 	static final int CAL_WIDTH = 7;
@@ -60,7 +64,7 @@ class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 				k = calStartingPos;
 			else
 				k = 0; // k는 각 주의 시작하는 날짜이고 첫주가 아니면 일요일부터 배열에 채워넣는다. num++을 증가시키며 날짜를 입력하고,마지막날을 입력한후
-						// 반복문을 종료한다.
+			// 반복문을 종료한다.
 			for (int j = k; j < CAL_WIDTH; j++) {
 				if (num <= calLastDate)
 					calDates[i][j] = num++;
@@ -93,30 +97,94 @@ class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 }
 //----------------------------------------------------------------
 public class CalendarExercise extends CalendarDataManager implements ActionListener {
+
 	// --메인 프레임
 	private JFrame frame;
 	private Container root;
-	// 년 / 월 패널
+	// --년 / 월 패널
 	private JPanel datePanel;
-		private JLabel dateLab;
-	// 일정 추가 버튼
-	private JButton schedbut;		
+	private JLabel label;
+	private JLabel label2; 
+	private JLabel label3;
+	private JLabel dateLab;
+	private JButton addbut;	 // 일정 추가 버튼	
 	// --버튼 패널
 	private JPanel butPanel;
-		private JButton nMonBut;
-		private JButton lMonBut;
-		private JButton nYeaBut;
-		private JButton lYeaBut;
+	private JButton nMonBut;
+	private JButton lMonBut;
+	private JButton nYeaBut;
+	private JButton lYeaBut;
 	private ListenMoveMonth lMoveMonth = new ListenMoveMonth();
 	// --달력 패널 
 	private JPanel calPanel; 
 	private JButton weekDaysName[];
 	private JButton dateButs[][] = new JButton[6][7];
 	final String WEEK_DAY_NAME[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" };
-	private JLabel label;
 	private final JPanel panel = new JPanel();
-	
-	private void initCalPane(){ //달력 패널 생성
+	// --일정 패널
+	//	private JPanel schedPanel;
+	//	private JLabel[] labArray;
+
+	public CalendarExercise() { // 생성자 
+		frame = new JFrame("Calendar Example"); // 타이틀 설정
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 버튼 기본 동작
+		frame.setBounds(300, 200, 700, 500); // 기본 크기, 위치 설정
+		//		frame.setResizable(false); // 크기 변경 금지 
+		root = frame.getContentPane();
+
+		initLabPane(); // 레이블 패널 
+		initCalPane(); // 달력 패널
+		initButPane(); // 버튼 패널
+		//		initschedPane(); // 일정 패널 
+
+		// Frame 세팅
+		calPanel.setLayout(new GridLayout(0, 7, 2, 2));
+		calPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+		root.add(butPanel, BorderLayout.SOUTH);
+		root.add(datePanel, BorderLayout.NORTH);
+
+		label=new JLabel("");
+		datePanel.add(label);
+
+		addbut.setPreferredSize(new Dimension(30, 30)); 
+		addbut.setBorderPainted(false); // 외곽선 없애기
+		addbut.setContentAreaFilled(false); // 채우기 안함
+		addbut.setFocusPainted(false); // 선택시 테두리 없음
+		addbut.setOpaque(false); // 투명하게 
+		datePanel.add(addbut);
+
+		addbut.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// CalendarAdd_Grid 창 호출
+			}
+		});
+		//		root.add(schedPanel, BorderLayout.SOUTH);
+		datePanel.add(panel); 
+		
+		root.add(calPanel);
+		showCal(); // 달력을 표시
+
+		frame.setVisible(true);
+	}
+
+	//	private void initschedPane() { // 일정 패널 생성
+	//		schedPanel = new JPanel();
+	//		schedPanel.setLayout(new GridLayout(5, 0));
+	//		labArray=new JLabel[5];
+	//		labArray[0] = new JLabel("일정 없음"); 
+	//		labArray[1] = new JLabel();
+	//		labArray[2] = new JLabel();
+	//		labArray[3] = new JLabel();
+	//		labArray[4] = new JLabel(); 
+	//
+	//		for(JLabel label : labArray) {
+	//			schedPanel.add(label); 
+	//		}
+	//	}
+
+	private void initCalPane(){ // 달력 패널 생성
 
 		// 요일 부분 설정 
 		calPanel=new JPanel();
@@ -152,71 +220,63 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	private void initLabPane() { // 레이블 패널 생성
 		// --레이블패널 생성 소스
 		datePanel = new JPanel();
-		datePanel.setPreferredSize(new Dimension(700, 50));
-		datePanel.setLayout(new GridLayout(0, 4, 0, 0));
-		
+		datePanel.setPreferredSize(new Dimension(700, 60));
+		//		datePanel.setLayout(new FlowLayout()); // 플로우 레이아웃 
+		datePanel.setLayout(new GridLayout(0,5,0,-50 )); // 그리드 레이아웃 
+		label2=new JLabel(""); 
+		datePanel.add(label2); 
+
 		// 일정 추가 버튼 생성 
-		ImageIcon originicon = new ImageIcon("./src/mini/plus.png"); // ImageIcon객체생성
+		ImageIcon originicon = new ImageIcon("./src/mini/add.png"); // ImageIcon객체생성
 		Image originimg = originicon.getImage(); // ImageIcon에서 Image를 추출
-		Image changedimg = originimg.getScaledInstance(32, 10, Image.SCALE_SMOOTH); // Image 크기 조절
-		ImageIcon Icon = new ImageIcon(changedimg);
-		
-		label = new JLabel("");
-		datePanel.add(label);
-		dateLab = new JLabel();
-		dateLab.setText(calYear + "년 " + (calMonth + 1) + "월"); 
-		datePanel.add(dateLab);
-		
-		//--레이블 패널 end
-	}
-	private void initButPane() {//버튼 패널 생성
-		// --버튼 패널 생성 소스
-				butPanel = new JPanel();
-				butPanel.setLayout(new FlowLayout());
-				lYeaBut = new JButton("작년");
-				lYeaBut.addActionListener(lMoveMonth);
-				butPanel.add(lYeaBut);
-				lMonBut = new JButton("지난 달");
-				lMonBut.addActionListener(lMoveMonth);
-				butPanel.add(lMonBut);
-				nMonBut = new JButton("다음 달");
-				nMonBut.addActionListener(lMoveMonth);
-				butPanel.add(nMonBut);
-				nYeaBut = new JButton("내년");
-				nYeaBut.addActionListener(lMoveMonth);
-				butPanel.add(nYeaBut);
-				// --버튼 생성 end
-
-	}
-	public CalendarExercise() {
-		frame = new JFrame("Calendar Example");// 타이틀 설정
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 닫기 버튼 기본 동작
-		frame.setBounds(300, 200, 700, 400); // 기본 크기, 위치 설정
-		// frame.setResizable(false); // 크기 변경 금지
-		root = frame.getContentPane();
-
-		initLabPane(); // 레이블 패널
-		initCalPane();// 달력 패널
-		initButPane();// 버튼 패널
-
-		// Frame 세팅
-		calPanel.setLayout(new GridLayout(0, 7, 2, 2));
-		calPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-		root.add(butPanel, BorderLayout.SOUTH);
-		root.add(datePanel, BorderLayout.NORTH);
-		datePanel.add(panel);
-		
-		JButton addbut = new JButton(Icon); // 아이콘 추가
-		panel.add(addbut);
-		addbut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		Image changedimg = originimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH); // Image 크기 조절
+		ImageIcon Icon = new ImageIcon(changedimg); 
+		addbut = new JButton(Icon); // 아이콘 추가
+		addbut.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new CalendarAdd_Grid();
 			}
 		});
-		root.add(calPanel);
-		showCal(); // 달력을 표시
-		
-		frame.setVisible(true);
+		addbut.setToolTipText("일정 추가하기"); 
+
+		label3=new JLabel("");
+		datePanel.add(label3);
+		dateLab = new JLabel(calYear + "년 " + (calMonth + 1) + "월"); 
+		dateLab.setHorizontalAlignment(SwingConstants.CENTER);
+		dateLab.setFont(new Font("굴림", Font.BOLD, 15));
+		datePanel.add(dateLab); 
+		//--레이블 패널 end
+	} 
+
+	private void initButPane() { //버튼 패널 생성 
+		// --버튼 패널 생성 소스
+		butPanel = new JPanel();
+		butPanel.setLayout(new FlowLayout());
+		lYeaBut = new JButton("작년");
+		lYeaBut.setBackground(Color.WHITE);
+		lYeaBut.setBorderPainted(false);
+		lYeaBut.addActionListener(lMoveMonth);
+		butPanel.add(lYeaBut);
+		lMonBut = new JButton("지난 달");
+		lMonBut.addActionListener(lMoveMonth);
+		lMonBut.setBackground(Color.WHITE);
+		lMonBut.setBorderPainted(false);
+		butPanel.add(lMonBut);
+		nMonBut = new JButton("다음 달");
+		nMonBut.setBackground(Color.white);
+		nMonBut.setBorderPainted(false);
+		nMonBut.addActionListener(lMoveMonth);
+		butPanel.add(nMonBut);
+		nYeaBut = new JButton("내년");
+		nYeaBut.setBackground(Color.WHITE); 
+		nYeaBut.setBorderPainted(false);
+		nYeaBut.addActionListener(lMoveMonth);
+		butPanel.add(nYeaBut);
+		// --버튼 생성 end
+
 	}
+
 
 	private void showCal() {// 달력을 보여줌 (호출시마다 calDate 배열을 초기화하여 새로 날짜를 씀
 		JButton todayBut = null;
@@ -229,7 +289,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 				if (calMonth == today.get(Calendar.MONTH) && calYear == today.get(Calendar.YEAR)
 						&& calDates[i][j] == today.get(Calendar.DAY_OF_MONTH)) {
 					dateButs[i][j].setToolTipText("Today"); 
-					todayBut = dateButs[i][j];
+					todayBut = dateButs[i][j]; 
 					//todayBut.setForeground(new Color(255,000,000)); // 오늘날짜 글자색상
 					todayBut.setBackground(new Color(250, 240, 230)); // 오늘날짜 배경색상, 린넨
 				}
@@ -259,7 +319,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 			} else if (e.getSource() == nYeaBut) {
 				moveMonth(12);
 			}
-			dateLab.setText("Year : " + calYear + " / Month : " + (calMonth + 1));
+			dateLab.setText("\t" + calYear + "년 "+ (calMonth + 1) + "월"); 
 			showCal();
 		}
 	}
@@ -269,9 +329,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		//날짜 클릭에 대한 동작 처리
 		JButton clickBut = (JButton)e.getSource();
 		System.out.println(clickBut.getText()+"일 입니다.");
-		
-		// 일정 보여주기 
-		
-	}
 
+		// 일정 보여주기 
+	}
 }
