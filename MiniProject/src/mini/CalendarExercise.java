@@ -19,9 +19,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.net.DatagramPacket;
 
 class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 	static final int CAL_WIDTH = 7;
@@ -118,30 +121,33 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	// --달력 패널 
 	private JPanel calPanel; 
 	private JButton weekDaysName[];
-	private JButton dateButs[][] = new JButton[6][7];
-	final String WEEK_DAY_NAME[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" };
-	private final JPanel panel = new JPanel();
+	private JButton dateButs[][] = new JButton[6][7]; 
+	final String WEEK_DAY_NAME[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" }; 
+	private JButton prev_click; 
 	// --일정 패널
-	//	private JPanel schedPanel;
-	//	private JLabel[] labArray;
+	private JPanel schedPanel;
+	private JTextField[] tfArray;
 
 	public CalendarExercise() { // 생성자 
-		frame = new JFrame("Calendar Example"); // 타이틀 설정
+		frame = new JFrame("Calendar"); // 타이틀 설정
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 버튼 기본 동작
-		frame.setBounds(300, 200, 700, 500); // 기본 크기, 위치 설정
+		frame.setBounds(300, 200, 1500, 700); // 기본 크기, 위치 설정
 		//		frame.setResizable(false); // 크기 변경 금지 
 		root = frame.getContentPane();
 
 		initLabPane(); // 레이블 패널 
 		initCalPane(); // 달력 패널
 		initButPane(); // 버튼 패널
-		//		initschedPane(); // 일정 패널 
+		initschedPane(); // 일정 패널
 
 		// Frame 세팅
 		calPanel.setLayout(new GridLayout(0, 7, 2, 2));
 		calPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+		
 		root.add(butPanel, BorderLayout.SOUTH);
-		root.add(datePanel, BorderLayout.NORTH);
+		root.add(datePanel, BorderLayout.NORTH); 
+		root.add(calPanel, BorderLayout.WEST);
+		root.add(schedPanel, BorderLayout.EAST); 
 
 		label=new JLabel("");
 		datePanel.add(label);
@@ -152,42 +158,33 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		addbut.setFocusPainted(false); // 선택시 테두리 없음
 		addbut.setOpaque(false); // 투명하게 
 		datePanel.add(addbut);
-
-		addbut.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// CalendarAdd_Grid 창 호출
-			}
-		});
-		//		root.add(schedPanel, BorderLayout.SOUTH);
-		datePanel.add(panel); 
-		
 		root.add(calPanel);
 		showCal(); // 달력을 표시
-
+//		root.add(calPanel);
 		frame.setVisible(true);
 	}
 
-	//	private void initschedPane() { // 일정 패널 생성
-	//		schedPanel = new JPanel();
-	//		schedPanel.setLayout(new GridLayout(5, 0));
-	//		labArray=new JLabel[5];
-	//		labArray[0] = new JLabel("일정 없음"); 
-	//		labArray[1] = new JLabel();
-	//		labArray[2] = new JLabel();
-	//		labArray[3] = new JLabel();
-	//		labArray[4] = new JLabel(); 
-	//
-	//		for(JLabel label : labArray) {
-	//			schedPanel.add(label); 
-	//		}
-	//	}
+	private void initschedPane() { // 일정 패널 생성
+		schedPanel = new JPanel();
+		schedPanel.setPreferredSize(new Dimension(600, 500));
+		schedPanel.setLayout(new GridLayout(5, 0));
+		tfArray=new JTextField[5];
+		tfArray[0] = new JTextField("일정 없음"); 
+		tfArray[1] = new JTextField();
+		tfArray[2] = new JTextField();
+		tfArray[3] = new JTextField();
+		tfArray[4] = new JTextField(); 
+
+		for(JTextField field : tfArray) {
+			schedPanel.add(field); 
+		
+		}
+	}
 
 	private void initCalPane(){ // 달력 패널 생성
-
 		// 요일 부분 설정 
-		calPanel=new JPanel();
+		calPanel=new JPanel(); 
+
 		weekDaysName = new JButton[7]; 
 		for (int i = 0; i < CAL_WIDTH; i++) {
 			weekDaysName[i] = new JButton(WEEK_DAY_NAME[i]);
@@ -206,23 +203,23 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		}
 		for (int i = 0; i < CAL_HEIGHT; i++) {
 			for (int j = 0; j < CAL_WIDTH; j++) {
-				dateButs[i][j] = new JButton();
-				// 폰트 크기 크게 조정하기 
+				dateButs[i][j] = new JButton(); 
 				dateButs[i][j].setBorderPainted(false);
 				dateButs[i][j].setContentAreaFilled(false);
 				dateButs[i][j].setBackground(Color.WHITE);
 				dateButs[i][j].setOpaque(true);
 				dateButs[i][j].addActionListener(this);
+					
+				// 폰트 크게
 				calPanel.add(dateButs[i][j]);
 			}
 		} // 달력 생성 end
 	}
 	private void initLabPane() { // 레이블 패널 생성
 		// --레이블패널 생성 소스
-		datePanel = new JPanel();
-		datePanel.setPreferredSize(new Dimension(700, 60));
-		//		datePanel.setLayout(new FlowLayout()); // 플로우 레이아웃 
-		datePanel.setLayout(new GridLayout(0,5,0,-50 )); // 그리드 레이아웃 
+		datePanel = new JPanel(); 
+		datePanel.setPreferredSize(new Dimension(700, 50));
+		datePanel.setLayout(new GridLayout(0, 5, 0, 0));
 		label2=new JLabel(""); 
 		datePanel.add(label2); 
 
@@ -235,7 +232,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		addbut.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new CalendarAdd_Grid();
+				new Addschedule_Null();
 			}
 		});
 		addbut.setToolTipText("일정 추가하기"); 
@@ -274,9 +271,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		nYeaBut.addActionListener(lMoveMonth);
 		butPanel.add(nYeaBut);
 		// --버튼 생성 end
-
 	}
-
 
 	private void showCal() {// 달력을 보여줌 (호출시마다 calDate 배열을 초기화하여 새로 날짜를 씀
 		JButton todayBut = null;
@@ -298,16 +293,15 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 					dateButs[i][j].setVisible(false);
 				else
 					dateButs[i][j].setVisible(true);
-
 			}
 		}
 	}
 
 	public static void main(String[] args) {
-		new CalendarExercise();
+		new CalendarExercise(); 
 	}
 
-	private class ListenMoveMonth implements ActionListener {//날짜 클릭 이벤트 처리
+	private class ListenMoveMonth implements ActionListener {//날짜 이동 이벤트 처리
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == lMonBut) {
@@ -326,10 +320,15 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//날짜 클릭에 대한 동작 처리
-		JButton clickBut = (JButton)e.getSource();
-		System.out.println(clickBut.getText()+"일 입니다.");
-
+		//날짜 클릭에 대한 동작 처리 
+		JButton clickBut = (JButton)e.getSource(); 
+		if(prev_click != null) prev_click.setForeground(Color.BLACK); 
+		clickBut.setForeground(Color.red); 
+		System.out.println(clickBut.getText()+"일 입니다."); 
 		// 일정 보여주기 
-	}
+		
+		prev_click=(JButton)e.getSource();
+	}  
 }
+
+
