@@ -2595,3 +2595,58 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.recommenders.types.rcp 1 4 2018-07-12 17:46:21.985
+!MESSAGE Full project indexing required:
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\charsets.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\access-bridge-64.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\cldrdata.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\dnsns.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\jaccess.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\jfxrt.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\localedata.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\nashorn.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\sunec.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\sunjce_provider.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\sunmscapi.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\sunpkcs11.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\ext\zipfs.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\jce.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\jfr.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\jsse.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\resources.jar
+  [+] C:\Program Files\Java\jre1.8.0_171\lib\rt.jar
+  [+] D:\workspace\JDBC\lib\ojdbc6.jar
+
+!STACK 0
+org.eclipse.recommenders.utils.Logs$LogTraceException
+	at org.eclipse.recommenders.utils.Logs$LogTraceException.newTrace(Logs.java:381)
+	at org.eclipse.recommenders.utils.Logs.log(Logs.java:134)
+	at org.eclipse.recommenders.internal.types.rcp.ProjectTypesIndex.needsRebuild(ProjectTypesIndex.java:169)
+	at org.eclipse.recommenders.internal.types.rcp.ProjectTypesIndex.startUp(ProjectTypesIndex.java:122)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY org.eclipse.recommenders.rcp 4 18 2018-07-12 19:30:27.928
+!MESSAGE Failed to resolve selection in ‘=GUI/src<swingEtc{SwingEtc_03_ScrollPane.java’ at offset 759.
+!STACK 1
+Java Model Exception: Java Model Status [Index out of bounds]
+	at org.eclipse.jdt.internal.core.Openable.codeSelect(Openable.java:160)
+	at org.eclipse.jdt.internal.core.CompilationUnit.codeSelect(CompilationUnit.java:387)
+	at org.eclipse.jdt.internal.core.CompilationUnit.codeSelect(CompilationUnit.java:380)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelections.resolveJavaElementFromTypeRootInEditor(JavaElementSelections.java:138)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelections.resolveJavaElementFromEditor(JavaElementSelections.java:119)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelections.resolveJavaElementFromEditor(JavaElementSelections.java:102)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelectionService.handleSelectionInEditor(JavaElementSelectionService.java:108)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelectionService.access$1(JavaElementSelectionService.java:105)
+	at org.eclipse.recommenders.internal.rcp.JavaElementSelectionService$1.run(JavaElementSelectionService.java:82)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+!SUBENTRY 1 org.eclipse.jdt.core 4 980 2018-07-12 19:30:27.943
+!MESSAGE Index out of bounds

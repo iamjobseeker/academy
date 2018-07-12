@@ -44,9 +44,8 @@ public class Addschedule_Null extends JFrame {
 	private JButton nobut; // 취소 버튼  
 //	private int focusDate;
 
-	Addschedule_Null(String[] ) { // 생성자
+	Addschedule_Null( ) { // 생성자
 
-		focusDate = date;
 		setTitle("일정 추가"); // 타이틀 
 		setBounds(650, 50, 400, 650); // 크기 및 위치
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); // 프레임 열기 
