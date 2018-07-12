@@ -21,39 +21,60 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener; 
 
 public class Addschedule_Null extends JFrame { 
-
-	// 가로 사이즈 줄이고
-	// 메모 기능 추가하기 
-
+	// 메인 프레임
+	private Container root; 
+	private Date focusDate;
 	// 본문 패널 
 	private JPanel pane = new JPanel();
+	// 제목 패널 
+	private JLabel title; // 제목 레이블  
+	// 본문 패널
+	private JTextField name; // 일정명 텍스트필드
+	private JTextField start; // 일정시작 텍스트필드
+	private JTextField end; // 일정 종료 텍스트필드
+	private JTextField share; // 일정 공유 텍스트필드
+	private JTextField anny; // 기념일지정 텍스트필드 
+	// 버튼 패널 
+	private JButton okbut; // 등록 버튼
+	private JButton nobut; // 취소 버튼  
+//	private int focusDate;
 
-	Addschedule_Null() { // 생성자
+	Addschedule_Null(String[] ) { // 생성자
 
+		focusDate = date;
 		setTitle("일정 추가"); // 타이틀 
 		setBounds(650, 50, 400, 650); // 크기 및 위치
-		setDefaultCloseOperation(EXIT_ON_CLOSE); // 프레임 열기 
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE); // 프레임 열기 
+		
+		root = getContentPane();
 
-		Container root = getContentPane();
-
-		// ----- 프레임 설정 ----- 
 		setResizable(false);
 		pane.setLayout(null); // 널 레이아웃 
 		//		pane.setBackground(new Color(255, 245, 238));  
 
+		initTitlePanel(); // 제목 패널
+		initCalndPanel(); // 본문 패널
+		initButPanel(); // 버튼 패널  
+
+	} // 생성자 
+
+	private void initTitlePanel() {
+
 		// ----- 전체 제목 -----
-		JLabel title = new JLabel("일정 등록");
-		title.setBounds(250, 40, 100, 20); 
+		title = new JLabel("일정 등록");
+		title.setBounds(0, 40, 400, 20); 
 		title.setFont(new Font("굴림", Font.BOLD, 15));
 		title.setText("일정 등록");
+		title.setHorizontalAlignment(SwingConstants.CENTER); 
 		pane.add(title); 
 
 		// ----- 일정 등록하기 (일정명 입력) -----
-		JTextField name = new JTextField();
+		name = new JTextField();
 		name.setBounds(20, 100, 350, 50); // 위치 설정 
 		//		name.setFont(new Font("굴림", Font.PLAIN, 15)); // 폰트 지정 
 
@@ -87,10 +108,14 @@ public class Addschedule_Null extends JFrame {
 
 		pane.add(name);
 
+	}
+
+	private void initCalndPanel() {
+
 		// ----- 일정 시작지점 등록하기 -----
-		JTextField start = new JTextField();
+		start = new JTextField();
 		start.setEditable(false);
-		start.setBounds(20, 180, 80, 50); // 위치 설정
+		start.setBounds(20, 180, 150, 50); // 위치 설정
 		//		start.setFont(new Font("굴림", Font.PLAIN, 15)); // 폰트 지정
 		start.setText("시작");
 		start.setBorder(null);
@@ -102,18 +127,18 @@ public class Addschedule_Null extends JFrame {
 		//		Date now = new Date(); // 현재의 날짜 및 시간 변수 
 		Calendar calendar = Calendar.getInstance(); // 캘린더 객체 얻기
 		Date value = calendar.getTime(); // 현재 시간 얻기
-
+	
 		calendar.add(Calendar.YEAR, -50); // 50년 전의 날짜 얻기
 		Date date_minus = calendar.getTime(); //50년 전의 날짜를 최소 날짜로 지정
 
-		calendar.add(Calendar.YEAR, 50); // 50년 뒤의 날짜 얻기 +50하면 현재날짜가됨.
+		calendar.add(Calendar.YEAR, +50); // 50년 뒤의 날짜 얻기 +50하면 현재날짜가됨.
 		Date date_plus = calendar.getTime(); //50년 뒤의 날짜를 최대 날짜로 지정
 
 		final SpinnerDateModel model = new SpinnerDateModel(value, date_minus, date_plus, Calendar.DAY_OF_WEEK); // 스피너 날짜 설정 
 		JSpinner spinner = new JSpinner(model); 
 		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		spinner.setSize(200, 50);
-		spinner.setLocation(100, 180); 
+		spinner.setLocation(170, 180); 
 		spinner.setBorder(null);
 
 		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner,"yyyy-MM-dd");
@@ -137,12 +162,12 @@ public class Addschedule_Null extends JFrame {
 		// -------------------------------------------
 
 		// ----- 일정 종료지점 등록하기 -----
-		JTextField end = new JTextField();
+		end = new JTextField();
 		end.setEditable(false);
 
-		end.setBounds(20, 260, 80, 50); // 위치 설정
+		end.setBounds(20, 260, 150, 50); // 위치 설정
 		//		end.setFont(new Font("굴림", Font.PLAIN, 15)); // 폰트 지정
-		end.setText("종료						  오후 2:00");
+		end.setText("종료	");
 		end.setBorder(null);
 		end.setBackground(Color.white);
 
@@ -152,7 +177,7 @@ public class Addschedule_Null extends JFrame {
 		final SpinnerDateModel model2 = new SpinnerDateModel(value, date_minus, date_plus, Calendar.DAY_OF_WEEK); // 스피너 날짜 설정 
 		JSpinner spinner2 = new JSpinner(model2); 
 		spinner2.setSize(200, 50);
-		spinner2.setLocation(100, 260); 
+		spinner2.setLocation(170, 260); 
 		spinner2.setBorder(null);
 
 		JSpinner.DateEditor editor2 = new JSpinner.DateEditor(spinner2,"yyyy-MM-dd");
@@ -176,7 +201,7 @@ public class Addschedule_Null extends JFrame {
 
 		// ----- 상대방과 공유하기 -----
 		// 상대방과 공유하기 텍스트
-		JTextField share = new JTextField("상대방과 공유");
+		share = new JTextField("상대방과 공유");
 
 		share.setBounds(20, 340, 350, 50); 
 		//		share.setFont(new Font("굴림", Font.PLAIN, 15)); // 폰트 지정
@@ -198,7 +223,7 @@ public class Addschedule_Null extends JFrame {
 
 		// ----- 기념일로 지정 설정 -----
 		// 기념일로 지정 텍스트
-		JTextField anny = new JTextField("기념일로 지정");
+		anny = new JTextField("기념일로 지정");
 
 		anny.setBounds(20, 420, 350, 50); 
 		//		anny.setFont(new Font("굴림", Font.PLAIN, 15)); // 폰트 지정
@@ -218,73 +243,91 @@ public class Addschedule_Null extends JFrame {
 		pane.add(anny2); 
 
 		// -------------------------------------------
+	}
+
+	private void initButPanel() {
 
 		// --- 일정 등록하기 버튼 ---
-		JButton okbut = new JButton("등록");
-		okbut.setBounds(150, 530, 100, 50);
+		okbut = new JButton("등록");
+		okbut.setBounds(50, 530, 100, 50);
 		okbut.setBorder(null);
 		okbut.setBackground(Color.white);
 		pane.add(okbut);
 
 		// --- 일정 등록 취소하기(창 닫기) 버튼 ---
-		JButton nobut = new JButton("취소");
-		nobut.setBounds(350, 530, 100, 50); 
-		nobut.setBorder(null);
+		nobut = new JButton("취소");
+		nobut.setBounds(250, 530, 100, 50); 
+		nobut.setBorder(null); 
 		nobut.setBackground(Color.WHITE); 
 		pane.add(nobut); 
-
+		
 		nobut.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// --- 등록 취소 대화상자 ---
-				JFrame c_frame = new JFrame("확인창");
-				c_frame.setBounds(1200, 50, 250, 200); 
-
-				// 레이블 
-				JLabel c_lbl = new JLabel("일정 등록을 취소하시겠습니까?"); 
-				c_lbl.setBounds(30, 30, 200, 50); 
-
-				// 확인 및 취소 버튼
-				JButton c_okbut = new JButton("확인");
-				c_okbut.setBounds(30, 90, 70, 40);
-				JButton c_nobut = new JButton("취소");
-				c_nobut.setBounds(140, 90, 70, 40);
-
-				JPanel c_pane = new JPanel();
-				c_pane.setLayout(null);
-
-				c_pane.add(c_lbl); 
-				c_pane.add(c_okbut);
-				c_pane.add(c_nobut); 
-
-				c_frame.getContentPane().add(c_pane); 
-				c_frame.setVisible(true);
-
-				c_nobut.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						c_frame.dispose();
-					}
-				});
-
-				c_okbut.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-						c_frame.dispose(); 
-					}
-				});
-
+				new CancelConfirm(); 
 			}
 		});
+
+//		nobut.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// --- 등록 취소 대화상자 ---
+//				JFrame c_frame = new JFrame("확인창");
+//				c_frame.setBounds(1200, 50, 250, 200); 
+//
+//				// 레이블 
+//				JLabel c_lbl = new JLabel("일정 등록을 취소하시겠습니까?"); 
+//				c_lbl.setBounds(30, 30, 200, 50); 
+//
+//				// 확인 및 취소 버튼
+//				JButton c_okbut = new JButton("확인");
+//				c_okbut.setBounds(30, 90, 70, 40);
+//				JButton c_nobut = new JButton("취소");
+//				c_nobut.setBounds(140, 90, 70, 40);
+//
+//				JPanel c_pane = new JPanel();
+//				c_pane.setLayout(null);
+//
+//				c_pane.add(c_lbl); 
+//				c_pane.add(c_okbut);
+//				c_pane.add(c_nobut); 
+//
+//				c_frame.getContentPane().add(c_pane); 
+//				c_frame.setVisible(true);
+//
+//				c_nobut.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						c_frame.dispose();
+//					}
+//				});
+//
+//				c_okbut.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						dispose();
+//						c_frame.dispose(); 
+//					}
+//				});
+//
+//			}
+//		});
+
 
 		root.add(pane); 
 
 		setVisible(true);
 
 		okbut.requestFocus(); // 버튼이 포커스 획득 
+
 	} 
+	
+//	public static void main(String[] args) {
+//		new Addschedule_Null();
+//	}
+
 }

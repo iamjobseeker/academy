@@ -14,8 +14,9 @@ public class CancelConfirm extends JFrame{
 	JLabel c_label;
 	JButton c_okbut;
 	JButton c_nobut;
+	Addschedule_Null add;
 	
-	private CancelConfirm() { // 생성자 
+	public CancelConfirm() { // 생성자 
 		
 		setTitle("확인창");
 		setBounds(1200, 50, 250, 200); 
@@ -52,7 +53,6 @@ public class CancelConfirm extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose(); // 확인창 종료 
-				
 			}
 		});
 
@@ -61,7 +61,7 @@ public class CancelConfirm extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose(); // 확인창만 종료
-				System.exit(0); // 일정 등록창도 종료
+				add.dispose(); // 일정 등록창도 종료
 				
 			}
 		});

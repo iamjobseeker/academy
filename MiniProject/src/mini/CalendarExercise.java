@@ -10,7 +10,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
@@ -19,12 +22,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.net.DatagramPacket;
 
 class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 	static final int CAL_WIDTH = 7;
@@ -104,6 +104,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	// --메인 프레임
 	private JFrame frame;
 	private Container root;
+	private Date focusDate;
 	// --년 / 월 패널
 	private JPanel datePanel;
 	private JLabel label;
@@ -127,58 +128,75 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	// --일정 패널
 	private JPanel schedPanel;
 	private JTextField[] tfArray;
+	JScrollPane scroll;
+	// 추가
+	private JLabel upLabel;
+	private JLabel downLabel;
+	private JPanel upPanel;
+	private JPanel downPanel;
+	private JLabel todaytf;
 
 	public CalendarExercise() { // 생성자 
-		frame = new JFrame("Calendar"); // 타이틀 설정
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 닫기 버튼 기본 동작
-		frame.setBounds(300, 200, 1500, 700); // 기본 크기, 위치 설정
-		//		frame.setResizable(false); // 크기 변경 금지 
+
+		frame = new JFrame("Calendar Example");// 타이틀 설정
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 닫기 버튼 기본 동작
+		frame.setBounds(300, 10, 700, 850); // 기본 크기, 위치 설정
+//		frame.setResizable(false); // 크기 변경 금지 
+		frame.getContentPane().setLayout(new FlowLayout());
+//		frame.setLayout(new GridLayout(2,0));
 		root = frame.getContentPane();
 
-		initLabPane(); // 레이블 패널 
-		initCalPane(); // 달력 패널
-		initButPane(); // 버튼 패널
-		initschedPane(); // 일정 패널
-
+		initLabPane(); // 레이블 패널
+		initCalPane();// 달력 패널
+		initButPane();// 버튼 패널
+		initschedPane(); // 일정 패널 
+ 
 		// Frame 세팅
+		upPanel = new JPanel(new BorderLayout());
+		upPanel.setPreferredSize(new Dimension(700, 400));
+		downPanel = new JPanel(new BorderLayout());
 		calPanel.setLayout(new GridLayout(0, 7, 2, 2));
 		calPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-		
-		root.add(butPanel, BorderLayout.SOUTH);
-		root.add(datePanel, BorderLayout.NORTH); 
-		root.add(calPanel, BorderLayout.WEST);
-		root.add(schedPanel, BorderLayout.EAST); 
 
-		label=new JLabel("");
-		datePanel.add(label);
+		upPanel.add(datePanel, BorderLayout.NORTH); 
+		upPanel.add(calPanel, BorderLayout.CENTER);
+		upPanel.add(butPanel, BorderLayout.SOUTH);
+//		datePanel.add(panel); 
 
-		addbut.setPreferredSize(new Dimension(30, 30)); 
-		addbut.setBorderPainted(false); // 외곽선 없애기
-		addbut.setContentAreaFilled(false); // 채우기 안함
-		addbut.setFocusPainted(false); // 선택시 테두리 없음
-		addbut.setOpaque(false); // 투명하게 
-		datePanel.add(addbut);
-		root.add(calPanel);
+//		downPanel.add(butPanel, BorderLayout.NORTH);
+		downPanel.add(schedPanel);
+
 		showCal(); // 달력을 표시
-//		root.add(calPanel);
+
+		frame.getContentPane().add(upPanel);
+		frame.getContentPane().add(downPanel); 
 		frame.setVisible(true);
 	}
 
 	private void initschedPane() { // 일정 패널 생성
 		schedPanel = new JPanel();
-		schedPanel.setPreferredSize(new Dimension(600, 500));
-		schedPanel.setLayout(new GridLayout(5, 0));
+		upLabel = new JLabel();
+		todaytf = new JLabel();
+		downLabel = new JLabel();
+		todaytf.setBackground(Color.white);
+		schedPanel.setPreferredSize(new Dimension(670, 350));
+		schedPanel.setLayout(new GridLayout(7, 0, 10, 3));
+		// 날짜 보여주는 레이블 
 		tfArray=new JTextField[5];
 		tfArray[0] = new JTextField("일정 없음"); 
 		tfArray[1] = new JTextField();
 		tfArray[2] = new JTextField();
 		tfArray[3] = new JTextField();
 		tfArray[4] = new JTextField(); 
-
-		for(JTextField field : tfArray) {
-			schedPanel.add(field); 
+		schedPanel.add(upLabel); 
+		schedPanel.add(todaytf);
 		
+		for(JTextField field : tfArray) {
+			field.setBorder(null); 
+			schedPanel.add(field); 
 		}
+		
+//		schedPanel.add(downLabel);
 	}
 
 	private void initCalPane(){ // 달력 패널 생성
@@ -221,6 +239,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		datePanel.setPreferredSize(new Dimension(700, 50));
 		datePanel.setLayout(new GridLayout(0, 5, 0, 0));
 		label2=new JLabel(""); 
+		label = new JLabel("");
 		datePanel.add(label2); 
 
 		// 일정 추가 버튼 생성 
@@ -228,14 +247,17 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		Image originimg = originicon.getImage(); // ImageIcon에서 Image를 추출
 		Image changedimg = originimg.getScaledInstance(30, 30, Image.SCALE_SMOOTH); // Image 크기 조절
 		ImageIcon Icon = new ImageIcon(changedimg); 
-		addbut = new JButton(Icon); // 아이콘 추가
+		addbut = new JButton(Icon); // 아이콘 추가 
 		addbut.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Addschedule_Null();
+//				new Addschedule_Null(e.getSource()); 
 			}
 		});
 		addbut.setToolTipText("일정 추가하기"); 
+		addbut.setSize(100, 50);
+		addbut.setBorder(null);
+		addbut.setContentAreaFilled(false); 
 
 		label3=new JLabel("");
 		datePanel.add(label3);
@@ -243,6 +265,8 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		dateLab.setHorizontalAlignment(SwingConstants.CENTER);
 		dateLab.setFont(new Font("굴림", Font.BOLD, 15));
 		datePanel.add(dateLab); 
+		datePanel.add(label); 
+		datePanel.add(addbut);
 		//--레이블 패널 end
 	} 
 
@@ -325,9 +349,9 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		if(prev_click != null) prev_click.setForeground(Color.BLACK); 
 		clickBut.setForeground(Color.red); 
 		System.out.println(clickBut.getText()+"일 입니다."); 
-		// 일정 보여주기 
-		
-		prev_click=(JButton)e.getSource();
+		todaytf.setText(clickBut.getText()+"일의 일정");
+		todaytf.setHorizontalAlignment(SwingConstants.CENTER); 
+		prev_click=(JButton)e.getSource(); 
 	}  
 }
 

@@ -31,8 +31,3 @@ public class SwingEtc_03_ScrollPane extends JFrame {
 	}
 }
 
-
-
-
-
-
