@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.awt.Rectangle"/>
-<fullyQualifiedTypeName name="swing.SwingEx_05_JPanel"/>
 <fullyQualifiedTypeName name="swing.loginJPanel"/>
 <fullyQualifiedTypeName name="javax.swing.JMenuBar"/>
 <fullyQualifiedTypeName name="javax.swing.JMenu"/>
@@ -15,7 +13,6 @@
 <fullyQualifiedTypeName name="java.awt.event.ComponentListener"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
 <fullyQualifiedTypeName name="com.sun.glass.events.KeyEvent"/>
-<fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseMotionListener"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseWheelListener"/>
 <fullyQualifiedTypeName name="java.awt.event.KeyAdapter"/>
@@ -25,10 +22,8 @@
 <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
 <fullyQualifiedTypeName name="javax.swing.JList"/>
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
-<fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="java.awt.event.FocusListener"/>
 <fullyQualifiedTypeName name="java.awt.event.FocusAdapter"/>
-<fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.ItemEvent"/>
 <fullyQualifiedTypeName name="java.awt.event.ItemListener"/>
 <fullyQualifiedTypeName name="javax.swing.text.MaskFormatter"/>
@@ -44,20 +39,25 @@
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="java.awt.Container"/>
-<fullyQualifiedTypeName name="java.awt.GridLayout"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
-<fullyQualifiedTypeName name="javax.swing.JButton"/>
 <fullyQualifiedTypeName name="mini.CalendarAdd_Grid"/>
 <fullyQualifiedTypeName name="javax.swing.SwingConstants"/>
-<fullyQualifiedTypeName name="java.awt.BorderLayout"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 <fullyQualifiedTypeName name="java.awt.Event"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
 <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
-<fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="mini.SpinnerTest"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="mini.CalendarExercise"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="mini.Addschedule_Null"/>
+<fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="java.awt.GridLayout"/>
+<fullyQualifiedTypeName name="java.net.DatagramPacket"/>
+<fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
 </qualifiedTypeNameHistroy>
