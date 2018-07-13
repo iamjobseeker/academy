@@ -251,7 +251,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		addbut.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				new Addschedule_Null(e.getSource()); 
+				new Addschedule_Null(); 
 			}
 		});
 		addbut.setToolTipText("일정 추가하기"); 

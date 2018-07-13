@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,17 +41,22 @@ public class Addschedule_Null extends JFrame {
 	private JTextField end; // 일정 종료 텍스트필드
 	private JTextField share; // 일정 공유 텍스트필드
 	private JTextField anny; // 기념일지정 텍스트필드 
+	private SpinnerDateModel model;
+//	final SpinnerDateModel model2;
 	// 버튼 패널 
 	private JButton okbut; // 등록 버튼
 	private JButton nobut; // 취소 버튼  
-//	private int focusDate;
+	
+	//	private int focusDate;
+
+	CalendarExercise ce = new CalendarExercise();
 
 	Addschedule_Null( ) { // 생성자
 
 		setTitle("일정 추가"); // 타이틀 
 		setBounds(650, 50, 400, 650); // 크기 및 위치
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); // 프레임 열기 
-		
+
 		root = getContentPane();
 
 		setResizable(false);
@@ -59,8 +66,34 @@ public class Addschedule_Null extends JFrame {
 		initTitlePanel(); // 제목 패널
 		initCalndPanel(); // 본문 패널
 		initButPanel(); // 버튼 패널  
-
+		SaveFile(); // 저장 메소드 
 	} // 생성자 
+
+	private void SaveFile() {
+//		
+//		String[] stArray = new String[5]; 
+//		stArray[0] = name.getText(); 
+//		stArray[1] = ((Object) model).getSelectedItem().toString();
+//		stArray[2] = model.getDate();
+//		
+//		okbut.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					String path = "./src/mini/memo1"; 
+//					File file = new File(path); 
+//					FileWriter writer = new FileWriter(file, true); 
+//					for(int i=0; i<3; i++) {
+//					writer.write(stArray[i]); 
+//					} 
+//					writer.flush();
+//					writer.close(); 
+//				} catch (Exception e2) { 
+//					e2.printStackTrace(); 
+//				}
+//			}
+//		}); 
+	}
 
 	private void initTitlePanel() {
 
@@ -121,20 +154,20 @@ public class Addschedule_Null extends JFrame {
 		start.setBackground(Color.white);
 
 		pane.add(start); 
-		
+
 
 		// ---- 일정 시작날짜 지정하기 ----
 		//		Date now = new Date(); // 현재의 날짜 및 시간 변수 
 		Calendar calendar = Calendar.getInstance(); // 캘린더 객체 얻기
 		Date value = calendar.getTime(); // 현재 시간 얻기
-	
+
 		calendar.add(Calendar.YEAR, -50); // 50년 전의 날짜 얻기
 		Date date_minus = calendar.getTime(); //50년 전의 날짜를 최소 날짜로 지정
 
 		calendar.add(Calendar.YEAR, +50); // 50년 뒤의 날짜 얻기 +50하면 현재날짜가됨.
 		Date date_plus = calendar.getTime(); //50년 뒤의 날짜를 최대 날짜로 지정
-		value.setDate(date);
-		final SpinnerDateModel model = new SpinnerDateModel(value, date_minus, date_plus, Calendar.DAY_OF_WEEK); // 스피너 날짜 설정 
+		//		value.setDate(date);
+		model = new SpinnerDateModel(value, date_minus, date_plus, Calendar.DAY_OF_WEEK); // 스피너 날짜 설정 
 		JSpinner spinner = new JSpinner(model); 
 		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		spinner.setSize(200, 50);
@@ -260,62 +293,14 @@ public class Addschedule_Null extends JFrame {
 		nobut.setBorder(null); 
 		nobut.setBackground(Color.WHITE); 
 		pane.add(nobut); 
-		
+
 		nobut.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new CancelConfirm(); 
 			}
 		});
-
-//		nobut.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// --- 등록 취소 대화상자 ---
-//				JFrame c_frame = new JFrame("확인창");
-//				c_frame.setBounds(1200, 50, 250, 200); 
-//
-//				// 레이블 
-//				JLabel c_lbl = new JLabel("일정 등록을 취소하시겠습니까?"); 
-//				c_lbl.setBounds(30, 30, 200, 50); 
-//
-//				// 확인 및 취소 버튼
-//				JButton c_okbut = new JButton("확인");
-//				c_okbut.setBounds(30, 90, 70, 40);
-//				JButton c_nobut = new JButton("취소");
-//				c_nobut.setBounds(140, 90, 70, 40);
-//
-//				JPanel c_pane = new JPanel();
-//				c_pane.setLayout(null);
-//
-//				c_pane.add(c_lbl); 
-//				c_pane.add(c_okbut);
-//				c_pane.add(c_nobut); 
-//
-//				c_frame.getContentPane().add(c_pane); 
-//				c_frame.setVisible(true);
-//
-//				c_nobut.addActionListener(new ActionListener() {
-//
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						c_frame.dispose();
-//					}
-//				});
-//
-//				c_okbut.addActionListener(new ActionListener() {
-//
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						dispose();
-//						c_frame.dispose(); 
-//					}
-//				});
-//
-//			}
-//		});
 
 
 		root.add(pane); 
@@ -325,9 +310,8 @@ public class Addschedule_Null extends JFrame {
 		okbut.requestFocus(); // 버튼이 포커스 획득 
 
 	} 
-	
-//	public static void main(String[] args) {
-//		new Addschedule_Null();
-//	}
 
+	public static void main(String[] args) {
+		new Addschedule_Null();
+	} 
 }
