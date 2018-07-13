@@ -348,7 +348,8 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		JButton clickBut = (JButton)e.getSource(); 
 		if(prev_click != null) prev_click.setForeground(Color.BLACK); 
 		clickBut.setForeground(Color.red); 
-		System.out.println(clickBut.getText()+"일 입니다."); 
+		System.out.println(clickBut.getText()+"일 입니다.");
+		
 		todaytf.setText(clickBut.getText()+"일의 일정");
 		todaytf.setHorizontalAlignment(SwingConstants.CENTER); 
 		prev_click=(JButton)e.getSource(); 

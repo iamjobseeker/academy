@@ -121,6 +121,7 @@ public class Addschedule_Null extends JFrame {
 		start.setBackground(Color.white);
 
 		pane.add(start); 
+		
 
 		// ---- 일정 시작날짜 지정하기 ----
 		//		Date now = new Date(); // 현재의 날짜 및 시간 변수 
@@ -132,7 +133,7 @@ public class Addschedule_Null extends JFrame {
 
 		calendar.add(Calendar.YEAR, +50); // 50년 뒤의 날짜 얻기 +50하면 현재날짜가됨.
 		Date date_plus = calendar.getTime(); //50년 뒤의 날짜를 최대 날짜로 지정
-
+		value.setDate(date);
 		final SpinnerDateModel model = new SpinnerDateModel(value, date_minus, date_plus, Calendar.DAY_OF_WEEK); // 스피너 날짜 설정 
 		JSpinner spinner = new JSpinner(model); 
 		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
