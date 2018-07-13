@@ -49,9 +49,9 @@ public class Addschedule_Null extends JFrame {
 	
 	//	private int focusDate;
 
-	CalendarExercise ce = new CalendarExercise();
+	private Date selDate;
 
-	Addschedule_Null( ) { // 생성자
+	public Addschedule_Null() { // 생성자
 
 		setTitle("일정 추가"); // 타이틀 
 		setBounds(650, 50, 400, 650); // 크기 및 위치
@@ -59,7 +59,7 @@ public class Addschedule_Null extends JFrame {
 
 		root = getContentPane();
 
-		setResizable(false);
+		setResizable(false); 
 		pane.setLayout(null); // 널 레이아웃 
 		//		pane.setBackground(new Color(255, 245, 238));  
 
@@ -69,30 +69,12 @@ public class Addschedule_Null extends JFrame {
 		SaveFile(); // 저장 메소드 
 	} // 생성자 
 
+	public Addschedule_Null(Date selDate) {
+		this.selDate = selDate;
+	}
 	private void SaveFile() {
-//		
-//		String[] stArray = new String[5]; 
-//		stArray[0] = name.getText(); 
-//		stArray[1] = ((Object) model).getSelectedItem().toString();
-//		stArray[2] = model.getDate();
-//		
-//		okbut.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				try {
-//					String path = "./src/mini/memo1"; 
-//					File file = new File(path); 
-//					FileWriter writer = new FileWriter(file, true); 
-//					for(int i=0; i<3; i++) {
-//					writer.write(stArray[i]); 
-//					} 
-//					writer.flush();
-//					writer.close(); 
-//				} catch (Exception e2) { 
-//					e2.printStackTrace(); 
-//				}
-//			}
-//		}); 
+		// 날짜 확인
+		
 	}
 
 	private void initTitlePanel() {

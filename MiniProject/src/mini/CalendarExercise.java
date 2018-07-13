@@ -177,7 +177,8 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		schedPanel = new JPanel();
 		upLabel = new JLabel();
 		todaytf = new JLabel();
-		downLabel = new JLabel();
+//		downLabel = new JLabel();
+		upLabel.setBackground(Color.WHITE); 
 		todaytf.setBackground(Color.white);
 		schedPanel.setPreferredSize(new Dimension(670, 350));
 		schedPanel.setLayout(new GridLayout(7, 0, 10, 3));
@@ -234,7 +235,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		} // 달력 생성 end
 	}
 	private void initLabPane() { // 레이블 패널 생성
-		// --레이블패널 생성 소스
+		// --레이블패널 생성 소스 
 		datePanel = new JPanel(); 
 		datePanel.setPreferredSize(new Dimension(700, 50));
 		datePanel.setLayout(new GridLayout(0, 5, 0, 0));
@@ -253,7 +254,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 			public void mouseClicked(MouseEvent e) {
 				new Addschedule_Null(); 
 			}
-		});
+		}); 
 		addbut.setToolTipText("일정 추가하기"); 
 		addbut.setSize(100, 50);
 		addbut.setBorder(null);
