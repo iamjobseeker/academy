@@ -273,7 +273,7 @@ public class CalendarView extends CalendarDataManager implements ActionListener 
 			dateLab.setText(calYear + "³â " + (calMonth + 1)+ "¿ù");
 			showCal();
 		}
-	}
+	} 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
