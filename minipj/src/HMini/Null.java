@@ -34,12 +34,7 @@ public class Null extends JFrame {
 	private JComboBox<String> anny;
 	private JButton okbut;
 	private JButton nobut;
-
-	// ★ 객체화
-	private CalendarView cv; 
-	// ★ 추가
-	private String username = "우성";
-	private String todo; 
+ 
 	String txtDate;
 	private String[] txtArray;
 	
@@ -189,10 +184,10 @@ public class Null extends JFrame {
 		okbut.requestFocus(); 
 	}
 	
-//	
-//	public static void main(String[] args) {
-//		new Null();
-//		
-//	}
+	
+	public static void main(String[] args) {
+		new Null("A");
+		
+	}
 	
 }

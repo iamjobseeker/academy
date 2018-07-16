@@ -25,6 +25,7 @@ public class FileOutput{
 	private String share;
 	private String anny;
 	private ArrayList<String> list = new ArrayList<>();
+	private String[] split;
 	
 	public FileOutput() { // 생성자 
 		readFile();
@@ -32,9 +33,7 @@ public class FileOutput{
 		frame.setBounds(100, 100, 500, 300); 
 		txtarea.setSize(new Dimension(500, 300));
 		txtarea.setText("텍스트 필드");
-		for(String s:list) {
-			txtarea.setText("\t"+s+"\t"); 
-		}
+		txtarea.setText(split[0]);
 		panel.setLayout(null);	
 		panel.add(txtarea);
 		frame.add(panel); 		
@@ -46,20 +45,18 @@ public class FileOutput{
 			BufferedReader in = new BufferedReader(
 					new FileReader("./src/HMini/memo")); 
 			while((s=in.readLine())!=null) {
-				String[] split = s.split("\t");
+				split = s.split("\t");
 				date = split[0];
 				name = split[1]; 
 				share = split[2];
 				anny = split[3]; 
-//				// 한줄 읽고 다음줄로 넘어가기 
-				list.add(name);
-				list.add(date);
-				list.add(share);
-				list.add(anny); 
-				System.out.println(date); 
-//				if(toString("2018-7-4")== date) {
-//					System.out.println("같음"); 
-//				} else System.out.println("모르겠음");
+				System.out.print(date);
+				if(date.equals("2018-7-16")) {
+					System.out.print(" 같음\n"); 
+				} else System.out.print(" 모르겠음\n");
+				
+				
+			
 				
 			}in.close();
 		} catch (FileNotFoundException e) {
