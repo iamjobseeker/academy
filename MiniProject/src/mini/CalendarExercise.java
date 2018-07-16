@@ -398,7 +398,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		for(JTextField s : tfArray) {
 			s.setText("");
 		} 
-
+ 
 		try {
 			BufferedReader in = new BufferedReader(
 					new FileReader("./src/mini/todo"));
