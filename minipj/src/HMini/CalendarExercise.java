@@ -89,7 +89,7 @@ class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 			while (calMonth > 11) {
 				calYear++;
 				calMonth -= 12;
-			}
+			} 
 		else if (calMonth < 0)
 			while (calMonth < 0) {
 				calYear--;
