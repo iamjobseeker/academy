@@ -280,7 +280,7 @@ public class Addschedule_Null extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new CancelConfirm(); 
+				new Confirm(); 
 			}
 		});
 
