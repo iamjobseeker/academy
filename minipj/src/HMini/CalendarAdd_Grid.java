@@ -174,7 +174,7 @@ public class CalendarAdd_Grid extends JFrame {
 					writer.write(txtArray[0]+"\t"
 							+ txtArray[1]+"\t"
 							+ txtArray[2]+"\t"
-							+ txtArray[3]+"\n");
+					 		+ txtArray[3]+"\n");
 					writer.flush();
 					writer.close(); 
 					new Ok();
