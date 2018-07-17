@@ -12,6 +12,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import swingEtc.SwingEtc_06_MyDialog;
+
 public class SwingEtc_06_MyDialogEx extends JFrame {
 
 	private SwingEtc_06_MyDialogEx() {

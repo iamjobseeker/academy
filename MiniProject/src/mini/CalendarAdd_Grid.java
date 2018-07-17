@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,17 +12,19 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.FileWriter;
-import java.rmi.activation.ActivationInstantiator;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;  
+
 
 public class CalendarAdd_Grid extends JFrame { 
 	// 메인 
@@ -36,14 +37,12 @@ public class CalendarAdd_Grid extends JFrame {
 	// 본문 패널
 	private JPanel calndPanel; 
 	private JTextField name; // 일정명 텍스트필드
-	private JTextField start; // 일정시작 텍스트필드
-	
+
 	private JScrollPane hourScroll;
 	private JList<String> hourList; 
 	
 	private JTextField memo; // 짧은 메모 
-//	private 
-	private String startTxt; // start에 들어갈 날짜텍스트
+
 	private JComboBox<String> share; 
 	private JComboBox<String> anny;
 	// 버튼 패널  
@@ -51,17 +50,25 @@ public class CalendarAdd_Grid extends JFrame {
 	private JLabel left; // 위치 조정용 레이블
 	private JLabel right; // 위치 조정용 레이블
 	private JLabel bottom; // 위치 조정용 레이블 
-	private JButton okbut; // 등록 버튼
+	public JButton okbut ; // 등록 버튼
 	private JButton nobut; // 취소 버튼 
 	// 왼오른쪽 패널
 	private JLabel leftlabel; 
 	private JLabel rightlabel;
+	// 날짜 받아오기
+	private String startTxt; // start에 들어갈 날짜텍스트
+	private String year;  // 기본값 설정 
+	private String month;
+	private String day; 
+	
+	JDialog dialog = new ConfirmDialog(this, "사용자 다이얼로그", true, getX()+50, getY()+50);
 	
 	public CalendarAdd_Grid(String str) {
+		if(str=="exit") {
+			dispose();
+		} else {
+		this.startTxt = str;
 		
-		this.startTxt = str; // 달력에서 날짜 받아오기
-		
-//		setTitle(); // 타이틀 
 		setBounds(650, 50, 500, 650); // 크기 및 위치
 		
 		initTitlePanel(); // 제목 패널
@@ -70,7 +77,7 @@ public class CalendarAdd_Grid extends JFrame {
 		
 		leftlabel=new JLabel();
 		rightlabel = new JLabel();
-		
+		 
 		root = getContentPane();
 		root.setLayout(new BorderLayout(40, 60)); 
 		root.add(titlePanel, BorderLayout.NORTH); 
@@ -79,17 +86,27 @@ public class CalendarAdd_Grid extends JFrame {
 		root.add(leftlabel, BorderLayout.WEST);
 		root.add(rightlabel, BorderLayout.EAST); 
 		
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);  
+		
 		setVisible(true); 
 		okbut.requestFocus(); // 버튼이 포커스 획득 
-	} // 생성자 끝
-
+		}
+	} // 생성자 끝 
+	
+	public void Exit(int num) {
+		if(num==999) { 
+			dispose();
+			System.out.println("종료"); // 실행됨 
+		} 
+	}
+	
 	private void initTitlePanel() { // 제목 패널 설정
 		titlePanel = new JPanel(new GridLayout(2, 0));
-		
+
 		split = startTxt.split("-");
-		String year = split[0];
-		String month = split[1]; 
-		String day = split[2]; 
+		year = split[0];
+		month = split[1]; 
+		day = split[2]; 
 
 		top = new JLabel(""); // 위치 조정용 레이블
 		title = new JLabel(year+"년 "+month+"월 "+day+"일의 일정등록"); // 제목 레이블 
@@ -98,9 +115,8 @@ public class CalendarAdd_Grid extends JFrame {
 
 		titlePanel.add(top); 
 		titlePanel.add(title); 
-
 	} // 제목 패널 끝
-
+	
 	private void initCalndPanel() { // 본문 패널 설정
 		calndPanel = new JPanel(new GridLayout(5, 0, 30, 60)); 
 
@@ -207,31 +223,30 @@ public class CalendarAdd_Grid extends JFrame {
 		okbut.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { 
 				// ★ 파일 저장 
 				try {
 					if(name.getText().equals("일정명")) {
-						new No(); 
+						new No(); // 일정명 입력하지 않으면 저장이 되지 않음 
 					} else {
 					String[] txtArray=new String[5];
 					txtArray[0]=(String)anny.getSelectedItem();
-					txtArray[1]=hourList.getSelectedValue();
-					txtArray[2]=name.getText();
-					txtArray[3]=memo.getText();
-					txtArray[4]=startTxt;
+					txtArray[1]=(String)hourList.getSelectedValue();
+					txtArray[2]=(String)name.getText();
+					txtArray[3]=(String)memo.getText();
+					txtArray[4]=(String)startTxt;
 					String path = "./src/mini/todo";
 					File file = new File(path);
 					FileWriter writer = new FileWriter(file, true); 
-					writer.write(txtArray[0]+"   " 
-							+ txtArray[1]+"     "
-							+ txtArray[2]+"     "
-					 		+ txtArray[3]+"     "
-					 		+ txtArray[4]+"     "
-					 		+ "\n"); // 파일에 저장 
+					writer.write(txtArray[0]+"\t" 
+							+ txtArray[1]+"\t"
+							+ txtArray[2]+"\t"
+					 		+ txtArray[3]+"\t" 
+					 		+ txtArray[4]+"\n"); // 파일에 저장 
 					writer.flush();
 					writer.close(); 
 					dispose();
-					new Ok();
+					new Ok(); 
 					} 
 				} catch (Exception e2) {
 				} 
@@ -248,13 +263,19 @@ public class CalendarAdd_Grid extends JFrame {
 		nobut.setBackground(Color.white);
 		nobut.setBorderPainted(false);
 		butpanel.add(nobut); 
-		butpanel.add(right);
+		butpanel.add(right); 
 		
 		nobut.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Confirm(); 
+//				JOptionPane.showMessageDialog(null, "test", "테스트", JOptionPane.QUESTION_MESSAGE);
+				Confirm con = new Confirm();
+				
+//				if(con.Press()==999) {
+//					System.out.println("999눌림");
+//					dispose(); 
+//					}
 			}
 		});
 
@@ -262,10 +283,9 @@ public class CalendarAdd_Grid extends JFrame {
 		butpanel.add(bottom, BorderLayout.SOUTH); 
 	}
 	
-	public static void main(String[] args) {
-
-		new CalendarAdd_Grid("2018-7-16"); 
-		
-	}
+//	public static void main(String[] args) {
+//
+//		new CalendarAdd_Grid("2018-7-16"); 
+//	}
 
 }

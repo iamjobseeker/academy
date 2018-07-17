@@ -14,11 +14,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.ReadOnlyFileSystemException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+//import static mini.CalendarAdd_Grid.okbut; 
 
 class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 	static final int CAL_WIDTH = 7;
@@ -45,9 +46,9 @@ class CalendarDataManager { // 6*7배열에 나타낼 달력 값을 구하는 class
 	}
 
 	public void setToday() { // 오늘의 정보 불러오기 & 변수에 저장
-		calYear = today.get(Calendar.YEAR);
-		calMonth = today.get(Calendar.MONTH);
-		calDayOfMon = today.get(Calendar.DAY_OF_MONTH);
+		calYear = today.get(Calendar.YEAR); // 올해
+		calMonth = today.get(Calendar.MONTH); // 이번달
+		calDayOfMon = today.get(Calendar.DAY_OF_MONTH); // 오늘
 		makeCalData(today);
 	}
 
@@ -137,12 +138,12 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	private String txt;
 	private String line;
 	private String load;
-	private CalendarAdd_Grid grid;
+	private CalendarAdd_Grid grid; 
 	private String[] split;
 
 	public CalendarExercise() { // 생성자 
 		frame = new JFrame("Calendar Example");// 타이틀 설정
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 닫기 버튼 기본 동작
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// 닫기 버튼 기본 동작
 		frame.setBounds(300, 10, 700, 700); // 기본 크기, 위치 설정
 		frame.getContentPane().setLayout(new FlowLayout());
 		root = frame.getContentPane();
@@ -166,10 +167,10 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		root.add(upPanel);
 		root.add(downPanel);
 
-		showCal(); // 달력을 표시 
+		showCal(); // 달력을 표시  
 		
-		load = calYear+"-"+(calMonth+1)+"-"+calDayOfMon;
-		FileRead(); // 달력에 일정 표시 
+		txt=calYear+"-"+(calMonth+1)+"-"+calDayOfMon;
+		Filetodo();
 		
 		frame.setVisible(true); 
 	}
@@ -247,11 +248,10 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 				// 날짜 넘겨주기 
 				int year = calYear;
 				int month = calMonth+1; 
-				String day = clickBut.getText(); 
+				String day = clickBut.getText(); // 날짜 클릭없이 '+'클릭하면 에러 
 				txt = year + "-" + month + "-" + day;
 				System.out.println(txt); // 클릭 날짜 
-				grid = new CalendarAdd_Grid(txt); 	
-				
+				grid = new CalendarAdd_Grid(txt); 	 
 			}
 		}); 
 		addbut.setToolTipText("일정 추가하기"); 
@@ -274,10 +274,11 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	private void initButPane() { //버튼 패널 생성 
 		// --버튼 패널 생성 소스
 		butPanel = new JPanel();
-		butPanel.setLayout(new FlowLayout());
-		lYeaBut = new JButton("작년");
-		lYeaBut.setBackground(Color.WHITE);
-		lYeaBut.setBorderPainted(false);
+		butPanel.setLayout(new FlowLayout()); 
+//		int lYea = Integer.parseInt(dateLab.getText().substring(0, 4))-1;
+		lYeaBut = new JButton("작년"); // 작년패널 
+		lYeaBut.setBackground(Color.WHITE); 
+		lYeaBut.setBorderPainted(false); 
 		lYeaBut.addActionListener(lMoveMonth);
 		butPanel.add(lYeaBut);
 		lMonBut = new JButton("지난 달");
@@ -295,10 +296,18 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		nYeaBut.setBorderPainted(false);
 		nYeaBut.addActionListener(lMoveMonth);
 		butPanel.add(nYeaBut);
+		
+		String.valueOf(2017); 
+		String a = 2017+""; // int -> String 
+		
 		// --버튼 생성 end
 	}
+	
+	private void Butaction() {
+		
+	}
 
-	private void showCal() {// 달력을 보여줌 (호출시마다 calDate 배열을 초기화하여 새로 날짜를 씀
+	private void showCal() { // 달력을 보여줌 (호출시마다 calDate 배열을 초기화하여 새로 날짜를 씀
 		JButton todayBut = null;
 		for (int i = 0; i < CAL_HEIGHT; i++) {
 			for (int j = 0; j < CAL_WIDTH; j++) { 
@@ -342,63 +351,8 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 			showCal();
 		}
 	} 
-
-	public void FileRead() { // 오늘 날짜에 해당하는 일정만 미리 로드하기 
-		load=calYear+"-"+(calMonth+1)+"-"+calDayOfMon;
-		System.out.println(load);
-		try {
-			BufferedReader in = new BufferedReader(
-					new FileReader("./src/mini/todo"));
-			line =""; 
-			while((line = in.readLine())!=null) {
-				if(line.contains(load)) { 
-					if(tfArray[0].getText().contains(load)==false) { // 빈 텍스트필드라면
-						tfArray[0].setText(line.replace(load, "")); // 날짜텍스트 제거
-						System.out.println("1번칸에 추가"); 
-					} else if(tfArray[1].getText().contains(load)==false) { // 빈 텍스트필드라면
-						tfArray[1].setText(line.replace(load, "")); // 날짜텍스트 제거
-						System.out.println("2번칸에 추가");
-					} else if(tfArray[2].getText().contains(load)==false) { // 빈 텍스트필드라면
-						tfArray[2].setText(line.replace(load, "")); // 날짜텍스트 제거
-						System.out.println("3번칸에 추가");
-					} else if(tfArray[3].getText().contains(load)==false) {
-						tfArray[3].setText(line.replace(load, "")); // 날짜텍스트 제거
-						System.out.println("4번칸에 추가");
-					} 
-				}		
-			} 
-			in.close();
-		} catch (FileNotFoundException e2) {
-			System.out.println("파일을 찾을 수 없습니다");
-		} catch (IOException e2) {
-			System.out.println("입출력 오류 발생");
-		} 
-	}
-		
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// 날짜 클릭에 대한 동작 처리 
-		clickBut = (JButton)e.getSource(); 
-		clickBut.setForeground(Color.red); 
-		if(prev_click != null) prev_click.setForeground(Color.BLACK); 
-		prev_click=(JButton)e.getSource(); 
-		
-		// 달력 넘길때 빨간색 없애기 
-//		if(e.getSource()==lYeaBut || e.getSource()==nYeaBut
-//				|| e.getSource()==lMonBut || e.getSource()==nMonBut) {
-//			for (int i = 0; i < CAL_HEIGHT; i++) {
-//				for (int j = 0; j < CAL_WIDTH; j++) {
-//					dateButs[i][j].setForeground(Color.BLACK);
-//				}
-//			} 
-
-		String txt = calYear+"-"+(calMonth+1)+"-"+clickBut.getText();
-		System.out.println(txt); 
-		
-		for(JTextField s : tfArray) {
-			s.setText("");
-		} 
- 
+	
+	public void Filetodo() {
 		try {
 			BufferedReader in = new BufferedReader(
 					new FileReader("./src/mini/todo"));
@@ -406,24 +360,26 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 			tfArray[0].setText("일정없음"); // 일정없는 날짜 처리 
 			while((line = in.readLine())!=null) { 
 				if(line.contains(txt)) { 
-					//					FileRead(line);  // 여러개 일정 처리하기 
-					if(tfArray[0].getText().contains("AM") || 
-							tfArray[0].getText().contains("PM")==false) { // 빈 텍스트필드라면
-						tfArray[0].setText(line.replace(txt, "")); // 날짜텍스트 제거
-						System.out.println("1번칸에 추가"); 
-					} else if(tfArray[1].getText().contains("AM") || 
-							tfArray[1].getText().contains("PM")==false) { // 빈 텍스트필드라면
-						tfArray[1].setText(line.replace(txt, "")); // 날짜텍스트 제거
+					if(tfArray[0].getText().contains("기념일") == false &&
+							tfArray[0].getText().contains("스케쥴")== false) 
+					{tfArray[0].setText(line.replace(txt, "")); // 날짜텍스트 제거
+					System.out.print("기념일,일정 포함 안함");
+					System.out.println("1번칸에 추가");
+					} else if(tfArray[1].getText().contains("기념일") == false && 
+							tfArray[1].getText().contains("스케쥴")==false) { // 빈 텍스트필드라면
+						tfArray[1].setText(line.replace(txt,"")); // 날짜텍스트 제거
 						System.out.println("2번칸에 추가");
-					} else if(tfArray[2].getText().contains(txt)==false) { // 빈 텍스트필드라면
+					} else if(tfArray[2].getText().contains("스케쥴") == false && 
+							tfArray[2].getText().contains("기념일")==false) { // 빈 텍스트필드라면
 						tfArray[2].setText(line.replace(txt, "")); // 날짜텍스트 제거
 						System.out.println("3번칸에 추가");
-					} else if(tfArray[3].getText().contains(txt)==false) {
+					} else if(tfArray[3].getText().contains("스케쥴") == false && 
+							tfArray[3].getText().contains("기념일")==false) {
 						tfArray[3].setText(line.replace(txt, "")); // 날짜텍스트 제거
 						System.out.println("4번칸에 추가");
 					} 
 					// 다른 날짜를 클릭하면 처음 일정 리셋하기 
-					// 달력에 일정 표시 삽입하기 
+					// 달력에 일정 표시 삽입하기  
 				}		
 			} 
 			in.close();
@@ -432,5 +388,34 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		} catch (IOException e2) {
 			System.out.println("입출력 오류 발생");
 		} 
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// 날짜 클릭에 대한 동작 처리 
+		clickBut = (JButton)e.getSource(); 
+		clickBut.setForeground(Color.red); 
+		if(prev_click != null) prev_click.setForeground(Color.BLACK); 
+		prev_click=(JButton)e.getSource(); 
+
+		txt = calYear+"-"+(calMonth+1)+"-"+clickBut.getText();
+		System.out.println(txt); 
+		
+		for(JTextField s : tfArray) {
+			s.setText("");
+		} 
+		
+		Filetodo(); 
+		
+		// 달력 넘길때 빨간색 없애기 
+		//		if(e.getSource()==lYeaBut || e.getSource()==nYeaBut
+		//				|| e.getSource()==lMonBut || e.getSource()==nMonBut) {
+		//			for (int i = 0; i < CAL_HEIGHT; i++) {
+		//				for (int j = 0; j < CAL_WIDTH; j++) {
+		//					dateButs[i][j].setForeground(Color.BLACK);
+		//				}
+		//			} 
+
 	}
 }

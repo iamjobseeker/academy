@@ -45,7 +45,7 @@ public class Test {
 		panel.add(tf3);
 		root.add(panel);
 		
-		Filetest(); 
+//		Filetest(); 
 	
 		frame.setVisible(true);
 	}
