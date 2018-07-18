@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="0" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_x"/>
 	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
+	<item value="0" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_y"/>
+	<item value="40" key="org.eclipse.jdt.ui.codeformatter.line_wrapping_tab_page.preview_line_width"/>
 	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
+	<item value="00..0.0.000.0.0.0.0.0.0.0.0.0..00.0.0.0.0.0.0.0.0.0.0..00.0.0.0.0.0..00.0.0.0..00.0.0.0...00.0..00.00..0..000.0.0.0.0.0.0.0.0.0...00.0..0.." key="org.eclipse.jdt.uiformatter_page.preference_tree_expansion"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="531" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.sash_form_left_width"/>
+	<item value="1244" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_width"/>
+	<item value="760" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_height"/>
+	<item value="0" key="org.eclipse.jdt.uiformatter_page.preference_scroll_position"/>
+	<item value="672" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.sash_form_rigth_width"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>
@@ -49,7 +58,7 @@
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
 		<item value="696" key="DIALOG_HEIGHT"/>
 		<item value="397" key="DIALOG_X_ORIGIN"/>
-		<item value="0" key="DIALOG_Y_ORIGIN"/>
+		<item value="8" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="DialogBounds_GenerateToStringDialog">
 		<item value="516" key="DIALOG_WIDTH"/>
@@ -104,7 +113,7 @@
 		<item value="2" key="pageIndex"/>
 	</section>
 	<section name="completion_proposal_size">
-		<item value="252" key="size.y"/>
+		<item value="254" key="size.y"/>
 		<item value="421" key="size.x"/>
 	</section>
 	<section name="AddGetterSetterDialog">

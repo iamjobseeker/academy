@@ -33,7 +33,7 @@ public class No {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose(); 
-			}
+			} 
 		});
 		panel=new JPanel();
 		panel.setLayout(null);

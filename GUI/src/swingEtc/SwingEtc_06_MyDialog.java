@@ -3,6 +3,7 @@ package swingEtc;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.acl.Owner;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -49,7 +50,7 @@ public class SwingEtc_06_MyDialog extends JDialog
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if( e.getSource() == btnOk ) {
-			System.exit(0);
+			this.dispose(); 
 		} else if( e.getSource() == btnCancel ) {
 			dispose();
 		}

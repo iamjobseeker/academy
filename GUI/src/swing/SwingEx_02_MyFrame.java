@@ -21,7 +21,7 @@ public class SwingEx_02_MyFrame extends JFrame  { // JFrame을 상속받아 클래스자�
 	// private생성자, 다른 사람의 임의변경 금지
 	private SwingEx_02_MyFrame() { // 생성자 
 
-		// 제목 표시줄
+		// 제목 표시줄 
 		setTitle("GUI Program");
 
 		// 위치와 크기 

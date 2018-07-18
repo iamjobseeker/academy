@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -123,6 +125,11 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	private JButton nYeaBut;
 	private JButton lYeaBut;
 	private ListenMoveMonth lMoveMonth = new ListenMoveMonth();
+	// -- 버튼 액션리스너
+	private int lYea;
+	private String lYeaStr;
+	private int nYea;
+	private String nYeaStr;
 	// --달력 패널 
 	private JPanel calPanel; 
 	private JButton weekDaysName[];
@@ -136,12 +143,17 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 	private JButton clickBut;
 	private JButton prev_click; 
 	private String txt;
+	private BufferedReader in;
 	private String line;
-	private String load;
-	private CalendarAdd_Grid grid; 
-	private String[] split;
+	// -- 일정삭제 패널
+	private JPanel delPanel;
+	private JButton[] butArray;
 
+
+	private JPanel iljungPanel; 
+	
 	public CalendarExercise() { // 생성자 
+		
 		frame = new JFrame("Calendar Example");// 타이틀 설정
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// 닫기 버튼 기본 동작
 		frame.setBounds(300, 10, 700, 700); // 기본 크기, 위치 설정
@@ -150,7 +162,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 
 		initLabPane(); // 레이블 패널
 		initCalPane();// 달력 패널 
-		initButPane();// 버튼 패널
+		initButPane();// 버튼 패널  
 		initschedPane(); // 일정 패널  
 
 		// Frame 세팅
@@ -163,7 +175,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		upPanel.add(datePanel, BorderLayout.NORTH); 
 		upPanel.add(calPanel, BorderLayout.CENTER);
 		upPanel.add(butPanel, BorderLayout.SOUTH); 
-		downPanel.add(schedPanel, BorderLayout.CENTER);
+		downPanel.add(iljungPanel, BorderLayout.CENTER);
 		root.add(upPanel);
 		root.add(downPanel);
 
@@ -175,28 +187,11 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		frame.setVisible(true); 
 	}
 
-	private void initschedPane() { // 일정 패널 생성
-		schedPanel = new JPanel();
-		schedPanel.setPreferredSize(new Dimension(670, 210));
-		schedPanel.setLayout(new GridLayout(4, 0, 10, 2));
-		// 날짜 보여주는 레이블 
-		tfArray=new JTextField[4];
-		tfArray[0] = new JTextField("일정 없음"); 
-		tfArray[1] = new JTextField();
-		tfArray[2] = new JTextField();
-		tfArray[3] = new JTextField();
-
-		for(JTextField field : tfArray) {
-			field.setBorder(null);  
-			field.setEditable(false);
-			field.setBackground(Color.white);
-			schedPanel.add(field); 
-		} 
-	}
+	
 
 	private void initCalPane(){ // 달력 패널 생성
 		// 요일 부분 설정 
-		calPanel=new JPanel(); 
+		calPanel=new JPanel();  
 
 		weekDaysName = new JButton[7]; // 요일
 		for (int i = 0; i < CAL_WIDTH; i++) {
@@ -213,7 +208,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 			weekDaysName[i].setOpaque(true);
 			weekDaysName[i].setFocusPainted(false);
 			calPanel.add(weekDaysName[i]); 
-		}
+		} 
 		for (int i = 0; i < CAL_HEIGHT; i++) {
 			for (int j = 0; j < CAL_WIDTH; j++) {
 				dateButs[i][j] = new JButton(); 
@@ -249,9 +244,9 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 				int year = calYear;
 				int month = calMonth+1; 
 				String day = clickBut.getText(); // 날짜 클릭없이 '+'클릭하면 에러 
-				txt = year + "-" + month + "-" + day;
+				txt = year + "-" + month + "-" + day; 
 				System.out.println(txt); // 클릭 날짜 
-				grid = new CalendarAdd_Grid(txt); 	 
+				CalendarAdd grid  = new CalendarAdd(txt); 	 
 			}
 		}); 
 		addbut.setToolTipText("일정 추가하기"); 
@@ -268,43 +263,71 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		label3=new JLabel("");
 		datePanel.add(label3); 
 		datePanel.add(addbut); 
-		//--레이블 패널 end
+		//--레이블 패널 end 
 	} 
 
-	private void initButPane() { //버튼 패널 생성 
+	private void initButPane() { // 버튼 패널 생성 
 		// --버튼 패널 생성 소스
 		butPanel = new JPanel();
 		butPanel.setLayout(new FlowLayout()); 
-//		int lYea = Integer.parseInt(dateLab.getText().substring(0, 4))-1;
-		lYeaBut = new JButton("작년"); // 작년패널 
+		lYea = calYear-1;
+		System.out.println(lYea); 
+		lYeaStr = String.valueOf(lYea); 
+//		lYeaBut = new JButton(lYeaStr+" 년"); // 작년패널 
+		lYeaBut = new JButton("작년");
 		lYeaBut.setBackground(Color.WHITE); 
 		lYeaBut.setBorderPainted(false); 
 		lYeaBut.addActionListener(lMoveMonth);
+//		lYeaBut.addActionListener(new ActionListener() {
+
+//			@Override
+//			public void actionPerformed(ActionEvent e) { 
+//				lYea-=1; 
+//				lYeaStr = String.valueOf(lYea); 
+//				lYeaBut.setText(lYeaStr+" 년");
+//				nYea -=1;
+//				nYeaStr = String.valueOf(nYea);
+//				nYeaBut.setText(nYeaStr+" 년");
+//			} 
+//		});
+		
 		butPanel.add(lYeaBut);
-		lMonBut = new JButton("지난 달");
+		lMonBut = new JButton("지난 달"); 
 		lMonBut.addActionListener(lMoveMonth);
 		lMonBut.setBackground(Color.WHITE);
-		lMonBut.setBorderPainted(false);
-		butPanel.add(lMonBut);
+		lMonBut.setBorderPainted(false); 
+		butPanel.add(lMonBut); 
 		nMonBut = new JButton("다음 달");
 		nMonBut.setBackground(Color.white);
 		nMonBut.setBorderPainted(false);
 		nMonBut.addActionListener(lMoveMonth);
-		butPanel.add(nMonBut);
+		butPanel.add(nMonBut); 
+		// 액션리스너 
+		nYea = calYear+1;
+		nYeaStr = String.valueOf(nYea);
+//		nYeaBut = new JButton(nYeaStr+" 년");
 		nYeaBut = new JButton("내년");
 		nYeaBut.setBackground(Color.WHITE); 
 		nYeaBut.setBorderPainted(false);
 		nYeaBut.addActionListener(lMoveMonth);
+//		nYeaBut.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				nYea+=1;
+//				nYeaStr = String.valueOf(nYea);
+//				nYeaBut.setText(nYeaStr+" 년"); 
+//				lYea +=1;
+//				lYeaStr = String.valueOf(lYea);
+//				lYeaBut.setText(lYeaStr+" 년");
+//			}
+//		}); 
 		butPanel.add(nYeaBut);
 		
-		String.valueOf(2017); 
-		String a = 2017+""; // int -> String 
+//		String.valueOf(2017); 
+//		String a = 2017+""; // int -> String 
 		
 		// --버튼 생성 end
-	}
-	
-	private void Butaction() {
-		
 	}
 
 	private void showCal() { // 달력을 보여줌 (호출시마다 calDate 배열을 초기화하여 새로 날짜를 씀
@@ -327,7 +350,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 					dateButs[i][j].setVisible(false);
 				else
 					dateButs[i][j].setVisible(true);
-			}
+			} 
 		}
 	}
 
@@ -348,15 +371,15 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 				moveMonth(12);
 			}
 			dateLab.setText("\t" + calYear + "년 "+ (calMonth + 1) + "월"); 
-			showCal();
+			showCal(); 
 		}
 	} 
 	
-	public void Filetodo() {
-		try {
-			BufferedReader in = new BufferedReader(
+	public void Filetodo() { 
+		try { 
+			in = new BufferedReader(
 					new FileReader("./src/mini/todo"));
-			String line =""; 
+			line =""; 
 			tfArray[0].setText("일정없음"); // 일정없는 날짜 처리 
 			while((line = in.readLine())!=null) { 
 				if(line.contains(txt)) { 
@@ -378,7 +401,6 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 						tfArray[3].setText(line.replace(txt, "")); // 날짜텍스트 제거
 						System.out.println("4번칸에 추가");
 					} 
-					// 다른 날짜를 클릭하면 처음 일정 리셋하기 
 					// 달력에 일정 표시 삽입하기  
 				}		
 			} 
@@ -388,7 +410,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		} catch (IOException e2) {
 			System.out.println("입출력 오류 발생");
 		} 
-		
+
 	}
 
 	@Override
@@ -400,7 +422,7 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		prev_click=(JButton)e.getSource(); 
 
 		txt = calYear+"-"+(calMonth+1)+"-"+clickBut.getText();
-		System.out.println(txt); 
+		System.out.println("클릭날짜 테스트용" + txt); 
 		
 		for(JTextField s : tfArray) {
 			s.setText("");
@@ -418,4 +440,96 @@ public class CalendarExercise extends CalendarDataManager implements ActionListe
 		//			} 
 
 	}
+	
+	private void initschedPane() { // 일정 패널 생성
+		delPanel = new JPanel();
+		delPanel.setLayout(new GridLayout(4, 0, 10, 2)); 
+		delPanel.setPreferredSize(new Dimension(60, 210));
+		
+		butArray = new JButton[4]; 
+		butArray[0] = new JButton("삭제");
+		butArray[1] = new JButton("삭제");
+		butArray[2] = new JButton("삭제");
+		butArray[3] = new JButton("삭제");
+		
+//		JButton delBut1 = new JButton("삭제");
+//		JButton delBut2 = new JButton("삭제");
+//		JButton delBut3 = new JButton("삭제");
+//		JButton delBut4 = new JButton("삭제"); 
+
+//		delBut1.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}
+//		});
+		
+		
+		for(JButton but : butArray) {
+			but.setBorder(null);
+			but.setBackground(Color.white);
+			but.setForeground(Color.red);
+			but.addActionListener(new ActionListener() { // 삭제버튼 액션리스너 
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// 해당 날짜의 해당 레이블 "" 만들기
+					// 파일에서 다시 일정을 읽어서 순서 조정하기 
+					txt = calYear+"-"+(calMonth+1)+"-"+clickBut.getText(); // 삭제할 일정의 날짜
+					String[] lineArray = new String [4]; // 라인을 담을 스트링 배열
+					for(int i=0; i<4; i++) {
+						lineArray[i]=""; // 초기화  
+					}
+					System.out.println( "삭제 테스트용"+txt); 
+					
+					if(( butArray[0] == (JButton)e.getSource())) { // 첫번째 삭제버튼 클릭
+						try { 
+							in = new BufferedReader( 
+									new FileReader("./src/mini/todo"));  
+							line =""; 
+							while((line = in.readLine())!=null) { 
+								if(line.contains(txt)) { 
+									if(lineArray[0].contains(txt)==false) lineArray[0] = line; // 배열이 빈 공간이라면
+									else if(lineArray[1].contains(txt)==false) lineArray[1] = line; // 라인을 저장
+									else if(lineArray[2].contains(txt)==false) lineArray[2] = line;
+									else lineArray[3] = line;  
+									
+									System.out.println("첫번째" + lineArray[0]);
+									System.out.println("두번째" + lineArray[1]);
+									System.out.println("세번째" + lineArray[2]);
+									System.out.println("네번째" + lineArray[3]); 
+								} 
+							}
+						} catch (IOException e1) {
+							System.out.println("삭제 버튼 입출력 에러 발생"); 
+						}
+					}
+				}
+			});
+			delPanel.add(but); 
+		} 
+		iljungPanel = new JPanel();
+		iljungPanel.setLayout(new FlowLayout()); 
+
+		schedPanel = new JPanel();
+		schedPanel.setPreferredSize(new Dimension(600, 210)); 
+		schedPanel.setLayout(new GridLayout(4, 0, 10, 2));
+		// 날짜 보여주는 레이블 
+		tfArray=new JTextField[4];
+		tfArray[0] = new JTextField("일정 없음"); 
+		tfArray[1] = new JTextField();
+		tfArray[2] = new JTextField();
+		tfArray[3] = new JTextField();
+
+		for(JTextField field : tfArray) {
+			field.setBorder(null);  
+			field.setEditable(false);
+			field.setBackground(Color.white);
+			schedPanel.add(field); 
+		}
+		
+		iljungPanel.add(schedPanel);
+		iljungPanel.add(delPanel); 
+	} 
 }

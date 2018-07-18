@@ -1,6 +1,6 @@
 //org.eclipse.ui.commands/state/org.eclipse.ui.navigator.resources.nested.changeProjectPresentation/org.eclipse.ui.commands.radioState=false
 ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.ui.workbenchMisc\tTorg.eclipse.debug.ui.presentation\tTorg.eclipse.egit.ui.GitTheme\tTorg.eclipse.jdt.ui.presentation\tTorg.eclipse.recommenders.snipmatch.rcp.themeElementCategory\tTorg.eclipse.wst.sse.ui\tTorg.eclipse.mylyn.tasks.ui.presentation\tTorg.eclipse.compare.contentmergeviewer.TextMergeViewer\tTorg.eclipse.ui.presentation.default\tTorg.eclipse.mylyn.wikitext.ui.presentation
-ColorsAndFontsPreferencePage.selectedElement=Corg.eclipse.mylyn.tasks.ui.colors.foreground.today.completed
+ColorsAndFontsPreferencePage.selectedElement=Forg.eclipse.jdt.ui.editors.textfont
 PLUGINS_NOT_ACTIVATED_ON_STARTUP=;org.eclipse.m2e.discovery;
 eclipse.preferences.version=1
 org.eclipse.e4.ui.css.theme.e4_default6.0,6.1,6.2,6.3,10.0.org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_BG_END=255,255,255
@@ -20,3 +20,5 @@ org.eclipse.e4.ui.css.theme.e4_default6.0,6.1,6.2,6.3,10.0.org.eclipse.ui.workbe
 org.eclipse.e4.ui.css.theme.e4_default6.0,6.1,6.2,6.3,10.0.org.eclipse.ui.workbench.INACTIVE_TAB_OUTLINE_COLOR=206,213,229
 org.eclipse.e4.ui.css.theme.e4_default6.0,6.1,6.2,6.3,10.0.org.eclipse.ui.workbench.INACTIVE_UNSELECTED_TABS_COLOR_END=244,246,252
 org.eclipse.e4.ui.css.theme.e4_default6.0,6.1,6.2,6.3,10.0.org.eclipse.ui.workbench.INACTIVE_UNSELECTED_TABS_COLOR_START=244,246,252
+org.eclipse.jdt.internal.ui.compare.JavaMergeViewer=1|Verdana|9.75|0|WINDOWS|1|-13|0|0|0|400|0|0|0|0|3|2|1|34|Verdana;
+org.eclipse.jdt.ui.editors.textfont=1|Verdana|9.75|0|WINDOWS|1|-13|0|0|0|400|0|0|0|0|3|2|1|34|Verdana;

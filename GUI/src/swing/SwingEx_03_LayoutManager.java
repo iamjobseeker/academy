@@ -22,15 +22,15 @@ public class SwingEx_03_LayoutManager extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // 닫기
 
 		// ---- 프레임 구성 작업 ---- ※ setVisible전에 설정하는게 좋음
-		// FlowLayoutEx(); // 왼쪽, 오른쪽, 다음 줄 순서대로 배치
-		 BorderLayoutEx(); // 동서남북중앙에 배치 
+		 FlowLayoutEx(); // 왼쪽, 오른쪽, 다음 줄 순서대로 배치
+//		 BorderLayoutEx(); // 동서남북중앙에 배치 
 		// GridLayoutEx(); // 행과 열을 가지는 표(테이블) 형식의 배치
 		// ---------------------
 
 		setVisible(true); // 보이기 ※ 마지막에 띄어주자
 	}
 
-	private void GridLayoutEx() {
+	private void GridLayoutEx() { 
 		//		setLayout(new GridLayout()); 
 		//		setLayout(new GridLayout(3, 0)); // 행, 열
 		//		setLayout(new GridLayout(0, 4)); 
